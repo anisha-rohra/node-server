@@ -35,7 +35,6 @@ app.get('/users', function(req, res) {
 			console.log("error");
 		} else {
 			console.log(qres.rows);
-			console.log("GOT EHERER");
 			res.json(qres.rows);
 		}
 	});
