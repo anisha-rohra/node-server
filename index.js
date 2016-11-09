@@ -41,16 +41,16 @@ app.get('/users', function(req, res) {
 
 });
 
-app.get('/entry/:userID/:date', function(req, res) {
+/*app.get('/entry', function(req, res) {
 
     //This queries the database and returns the rows from the database
-	Integer id = req.queryParams("userID");
-	TimeStamp entryDate = req.queryParams("date");
-	client.query("SELECT * FROM skin.entry WHERE userID ="+ id +"and date ="+ entryDate +";", function (err, qres) {
+	//int i = 1;
+	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
+	client.query("SELECT * FROM skin.entry WHERE userID =1" +"and date = 2016-11-09 17:55:20.268058;", function (err, qres) {
 		if (err) {
 			console.log("error");
 		} else {
-			console.log("qres is " + qres);
+		//	console.log("qres is " + qres);
 			console.log(qres.rows);
 			res.json(qres.rows);
 		}
