@@ -41,7 +41,7 @@ app.get('/users', function(req, res) {
 
 });
 
-app.get('/entry/:userID/:date', function(req, res) {
+app.get('/entry/:userID', function(req, res) {
 
     //This queries the database and returns the rows from the database
 	var id = req.params.userID;
