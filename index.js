@@ -46,7 +46,7 @@ app.get('/entry/:userID', function(req, res) {
     //This queries the database and returns the rows from the database
 	var id = req.params.userID;
 	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
-	client.query("SELECT * FROM skin.entry where userid = "+id+ " ;", function (err, qres) {
+	client.query("SELECT * FROM skin.entry where userid = "+ stringify(id) + " ;", function (err, qres) {
 		if (err) {
 			console.log("error");
 		} else {
