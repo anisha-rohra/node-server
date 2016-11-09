@@ -46,7 +46,7 @@ app.get('/entry', function(req, res) {
     //This queries the database and returns the rows from the database
 	//int i = 1;
 	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
-	client.query("SELECT userid FROM skin.entry where userid = 1;", function (err, qres) {
+	client.query("SELECT * FROM skin.entry where userid = 1 and date = '2016-11-09 17:55:20.268058';", function (err, qres) {
 		if (err) {
 			console.log("error");
 		} else {
