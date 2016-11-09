@@ -52,8 +52,8 @@ app.get('/entry/:userID', function(req, res) {
 		} else {
 		//	console.log("qres is " + qres);
 			console.log(qres.rows);
-			res.send(req.params.userID);
-			//res.json(qres.rows);
+		//	res.send(req.params.userID);
+		res.json(qres.rows);
 		}
 	});
 
