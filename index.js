@@ -41,7 +41,7 @@ app.get('/users', function(req, res) {
 
 });
 
-/*app.get('/entry', function(req, res) {
+app.get('/entry', function(req, res) {
 
     //This queries the database and returns the rows from the database
 	//int i = 1;
