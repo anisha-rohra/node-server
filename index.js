@@ -60,7 +60,7 @@ app.post('/users',routes.postUser);
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
 
-app.get('/entry', routes.getEntryByIDAndDate);
+//app.get('/entry', routes.getEntryByIDAndDate);
 
 // GET Products:
 // Endpoint handles requests with queries:
