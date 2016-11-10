@@ -202,18 +202,36 @@ exports.postUser = function(req,res,next){
    */
   exports.addProduct = function(req,res,next){
     //TODO: TO be completed
+
     var body = req.body;
     var name = body.name;
     var brand = body.brand;
-    client.query('INSERT INTO skin.product VALUES (DEFAULT, $1, $2)', [name, brand],
+    client.query("INSERT INTO skin.product VALUES ($1, $2, $3) WHERE NOT EXISTS (SELECT name=" + name + " and brand=" + brand + ";", [productID, name, brand],
         function(err,qres){
           if(err){
             //Err is a map return the error to the user
             return res.send("Error\n");
           }
           else{
-            console.log("New product added\n");
+            console.log("New product added to product\n");
           }
         });
+  }
 
+  exports.addMyProduct = function(req,res, next){
+    var body = req.body;
+    var userID = body.userID;
+    var productID = body.productID;
+    var endDate = body.endDate;
+    var expiryDate = body.expiryDate;
+    client.query("INSERT INTO skin.myProduct VALUES ($1, $2, $3, $4) ;", [DEFAULT, userID, productID, DEFAULT, endDate, expiryDate],
+        function(err,qres){
+          if(err){
+            //Err is a map return the error to the user
+            return res.send("Error\n");
+          }
+          else{
+            console.log("New product added to  my product\n");
+          }
+        });
   }

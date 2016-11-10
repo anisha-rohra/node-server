@@ -58,7 +58,7 @@ app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
 app.post('/users',routes.postUser);
 
 app.get('/products', routes.getProducts, routes.getProductById);
-app.post('/products', routes.addProduct);
+app.post('/products', routes.addProduct, routes.addMyProduct);
 
 //app.get('/entry', routes.getEntryByIDAndDate);
 
