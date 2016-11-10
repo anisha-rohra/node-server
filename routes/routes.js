@@ -192,7 +192,7 @@ exports.postUser = function(req,res,next){
             return res.send("Error\n");
           }
           else{
-            res.send("Success\n");
+            console.log("New product added\n");
           }
         });
 

@@ -57,6 +57,7 @@ app.get('/', function(request, response) {
 app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
 app.post('/users',routes.postUser);
 
+app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
 
 // GET Products:
