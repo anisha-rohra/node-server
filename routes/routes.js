@@ -100,6 +100,26 @@ exports.postUser = function(req,res,next){
 /*
  *
  */
+ export.getEntryByIDAndDate = function(req,res,next){}
+  app.get('/entry/:userID/:date', function(req, res) {
+
+     //This queries the database and returns the rows from the database
+ 	var id = req.params.userID;
+ 	var date = req.params.date;
+ 	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
+ 	client.query("SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + " ;", function (err, qres) {
+ 		if (err) {
+ 			console.log("error");
+ 		} else {
+ 		//	console.log("qres is " + qres);
+ 		console.log(qres.rows);
+ 		//	res.send(req.params.userID);
+ 		res.json(qres.rows);
+ 		}
+ 	});
+
+ });
+
  exports.getProducts = function(req,res,next){
    //Check if there is no query
    var query = req.query;

@@ -60,6 +60,8 @@ app.post('/users',routes.postUser);
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
 
+app.get('/entry', routes.getEntryByIDAndDate);
+
 // GET Products:
 // Endpoint handles requests with queries:
 	// Queries: -	/products?prodid=id
@@ -171,18 +173,6 @@ client.query(query, function (err, qres) {
 					 }
 			 });
 */
-
-
-	client.query('INSERT INTO skin.product VALUES (DEFAULT, $1, $2)', ['test1', 'aviva'],
-			function(err,qres){
-				if(err){
-					//Err is a map return the error to the user
-					return res.send("Error\n");
-				}
-				else{
-					console.log("New product added\n");
-				}
-			});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
