@@ -63,15 +63,16 @@ app.post('/users',routes.postUser);
 	//					-	/products?brand=brand
 	//					- /products?rating=rating
 	//					- /products?userid=userid
-// app.get('/products',routes.getProducts, routes.getProductById,
-// 										routes.getProductsByBrand, routes.getProductsByRating,
-// 										routes.getUserProducts);
-// app.post('/products',routes.addProduct);
+app.get('/products',routes.getProducts, routes.getProductById,
+										routes.getProductsByBrand, routes.getProductsByRating,
+										routes.getUserProducts);
+app.post('/products',routes.addProduct);
 
-
+// GET Entries:
+// Endpoint handles entries requests
 app.get('/entry/:userID/:date', function(req, res) {
 
-    //This queries the database and returns the rows from the database
+  //This queries the database and returns the rows from the database
 	var id = req.params.userID;
 	var date = req.params.date;
 	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
