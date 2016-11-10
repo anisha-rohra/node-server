@@ -100,7 +100,7 @@ exports.postUser = function(req,res,next){
 /*
  *
  */
- export.getEntryByIDAndDate = function(req,res,next){}
+ /*export.getEntryByIDAndDate = function(req,res,next){
   app.get('/entry/:userID/:date', function(req, res) {
 
      //This queries the database and returns the rows from the database
@@ -111,14 +111,14 @@ exports.postUser = function(req,res,next){
  		if (err) {
  			console.log("error");
  		} else {
- 		//	console.log("qres is " + qres);
- 		console.log(qres.rows);
- 		//	res.send(req.params.userID);
- 		res.json(qres.rows);
+ 		   //	console.log("qres is " + qres);
+ 		 console.log(qres.rows);
+ 		  //	res.send(req.params.userID);
+ 		   res.json(qres.rows);
  		}
  	});
 
- });
+});*/
 
  exports.getProducts = function(req,res,next){
    //Check if there is no query
