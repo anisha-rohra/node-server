@@ -1,7 +1,11 @@
 var http = require('http');
 var fs = require('fs');
 var pg = require('pg');
+var session = require('cookie-session');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var express = require('express');
+var routes = require('./routes/routes');
 var app = express();
 
 // Establish database connection
@@ -23,23 +27,47 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+// Set up to use a session
+app.use(cookieParser('SECRET'));
+app.use(session({
+		secret:'notsosecret'
+}));
+
+// Middleware that simplifies the process of parsing and reading the request
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ // Supports URL encoded bodies
+	extended:true
+}));
+
+/* The section below refers to the API all the routes that this API will support
+ * will be defined here. Developers should take a closer look to pre-requisites
+ * and post-requisites for each one of the handlers of the HTTP endpoint
+ *
+ */
+
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
 
-app.get('/users', function(req, res) {
+//GET All Users
+//Endpoint also handles requests with queries:
+	// Queries: - /users?username=username
+	//					- /users?email=email
+app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
+app.post('/users',routes.postUser);
 
-	client.query("SELECT * FROM skin.user;", function (err, qres) {
-		if (err) {
-			console.log("error");
-		} else {
-			console.log(qres.rows);
-			res.json(qres.rows);
-		}
-	});
+// GET Products:
+// Endpoint handles requests with queries:
+	// Queries: -	/products?prodid=id
+	//					-	/products?brand=brand
+	//					- /products?rating=rating
+	//					- /products?userid=userid
+// app.get('/products',routes.getProducts, routes.getProductById,
+// 										routes.getProductsByBrand, routes.getProductsByRating,
+// 										routes.getUserProducts);
+// app.post('/products',routes.addProduct);
 
-});
 
 app.get('/entry/:userID/:date', function(req, res) {
 
