@@ -57,22 +57,23 @@ app.get('/', function(request, response) {
 app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
 app.post('/users',routes.postUser);
 
+app.post('/products', routes.addProduct);
+
 // GET Products:
 // Endpoint handles requests with queries:
 	// Queries: -	/products?prodid=id
 	//					-	/products?brand=brand
 	//					- /products?rating=rating
 	//					- /products?userid=userid
-app.get('/products',routes.getProducts, routes.getProductById,
-										routes.getProductsByBrand, routes.getProductsByRating,
-										routes.getUserProducts);
-app.post('/products',routes.addProduct);
+// app.get('/products',routes.getProducts, routes.getProductById,
+// 										routes.getProductsByBrand, routes.getProductsByRating,
+// 										routes.getUserProducts);
+// app.post('/products',routes.addProduct);
 
-// GET Entries:
-// Endpoint handles entries requests
-app.get('/entry/:userID/:date', function(req, res) {
 
-  //This queries the database and returns the rows from the database
+/*app.get('/entry/:userID/:date', function(req, res) {
+
+    //This queries the database and returns the rows from the database
 	var id = req.params.userID;
 	var date = req.params.date;
 	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
@@ -87,7 +88,7 @@ app.get('/entry/:userID/:date', function(req, res) {
 		}
 	});
 
-});
+});*/
 
 //Post request for add entry
 /*app.post('/add-entry', function(req, res) {

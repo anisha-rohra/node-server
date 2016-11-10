@@ -113,7 +113,6 @@ exports.postUser = function(req,res,next){
    }
  }
 
-
  /* Handler function that queries the database and returns the product by
   *
   */
@@ -186,4 +185,15 @@ exports.postUser = function(req,res,next){
     var body = req.body;
     var name = body.name;
     var brand = body.brand;
+    client.query('INSERT INTO skin.product VALUES (DEFAULT, $1, $2)', [name, brand],
+        function(err,qres){
+          if(err){
+            //Err is a map return the error to the user
+            return res.send("Error\n");
+          }
+          else{
+            res.send("Success\n");
+          }
+        });
+
   }
