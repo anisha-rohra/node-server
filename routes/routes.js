@@ -155,7 +155,7 @@ exports.postUser = function(req,res,next){
     + date  + "is not" + NULL + "and"
     + photoLocation + "is not" + NULL + "and"
     + entryDescription + "is not" + NULL + "and"
-    + rating  + "is not" + NULL + 
+    + rating  + "is not" + NULL +
      ";"
         , function(err, result) {
 					 if (err) {
@@ -165,6 +165,26 @@ exports.postUser = function(req,res,next){
 
 					 }
 			 });
+  }
+
+  exports.deleteEntry = function(req,res,next){
+
+    var body = req.body;
+    var entryID = body.entryID;
+    var userID = body.userID;
+    //perform the validation checks
+    // Query Database
+    client.query("DELETE FROM skin.entry WHERE entryid=$1::text and userid=$2::text;",
+          [entryID,userID],
+        function(err,qres){
+          if(err){
+            //Err is a map return the error to the user
+            return res.send("Duplicate Key Value\n");
+          }
+          else{
+            res.send("Success\n");
+          }
+        });
   }
 
  exports.getProducts = function(req,res,next){
@@ -279,6 +299,25 @@ exports.postUser = function(req,res,next){
           }
           else{
             console.log("New product added to  my product\n");
+          }
+        });
+  }
+  exports.deleteMyProduct = function(req,res,next){
+
+    var body = req.body;
+    var productID = body.productID;
+    var userID = body.userID;
+    //perform the validation checks
+    // Query Database
+    client.query("DELETE FROM skin.myProduct WHERE productID=$1::text and userID=$2::text;",
+          [productID,userID],
+        function(err,qres){
+          if(err){
+            //Err is a map return the error to the user
+            return res.send("Duplicate Key Value\n");
+          }
+          else{
+            res.send("Success\n");
           }
         });
   }
