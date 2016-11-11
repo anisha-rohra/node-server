@@ -57,6 +57,9 @@ app.get('/', function(request, response) {
 app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
 app.post('/users',routes.postUser);
 
+app.get('/entry', routes.getEntryByIDAndDate);
+app.post('/entry', routes.addEntry);
+
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct, routes.addMyProduct);
 
@@ -173,6 +176,17 @@ client.query(query, function (err, qres) {
 					 }
 			 });
 */
+
+/*client.query("INSERT INTO skin.myProduct VALUES (DEFAULT, 1, 1,  DEFAULT, DEFAULT, DEFAULT) ;",
+		function(err,qres){
+			if(err){
+				//Err is a map return the error to the user
+				console.log("Error\n");
+			}
+			else{
+				console.log("New product added to  my product\n");
+			}
+		});*/
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

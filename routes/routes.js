@@ -100,25 +100,40 @@ exports.postUser = function(req,res,next){
 /*
  *
  */
- /*export.getEntryByIDAndDate = function(req,res,next){
-  app.get('/entry/:userID/:date', function(req, res) {
-
-     //This queries the database and returns the rows from the database
- 	var id = req.params.userID;
- 	var date = req.params.date;
+ exports.getEntryByIDAndDate = function(req,res,next){
+  //This queries the database and returns the rows from the database
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
- 	client.query("SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + " ;", function (err, qres) {
- 		if (err) {
- 			console.log("error");
- 		} else {
- 		   //	console.log("qres is " + qres);
- 		 console.log(qres.rows);
- 		  //	res.send(req.params.userID);
- 		   res.json(qres.rows);
- 		}
- 	});
+  if (req.query.id != "" && req.query.date != ""){
+    var id = req.query.userID;
+    var date = req.query.date;
+ 	 var string = "SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + ";"
+   var rows = queryGetDatabase(string, "Get entry by id and date");
+   res.json(rows);
+  }
+  else {
+    res.send('Error')
+  }
+}
+  exports.addEntry = function(req, res, next) {
 
-});*/
+      var body = req.body;
+      var entryID = body.entryID;
+      var userID = body.userID;
+      var date = body.date;
+  		var photoLocation = body.photoLocation;
+  		var entryDescription = body.entryDescription;
+  		var rating = body.rating;
+
+  		client.query('INSERT INTO "skin.entry" VALUES ($1, $2, $3, $4, $5, $6);',
+  			 [entryID, userID, date, photoLocation, entryDescription,rating], function(err, result) {
+  					 if (err) {
+  							 console.log(err);
+  					 } else {
+  							 console.log("New entry inserted: " + entryID);
+
+  					 }
+  			 });
+  }
 
  exports.getProducts = function(req,res,next){
    //Check if there is no query
