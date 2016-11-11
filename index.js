@@ -59,9 +59,11 @@ app.post('/users',routes.postUser);
 
 app.get('/entry', routes.getEntryByIDAndDate);
 app.post('/entry', routes.addEntry);
+app.post('/delete-entry', routes.deleteEntry);
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct, routes.addMyProduct);
+app.post('/delete-my-product', routes.deleteMyProduct);
 
 //app.get('/entry', routes.getEntryByIDAndDate);
 
