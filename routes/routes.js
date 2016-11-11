@@ -135,6 +135,38 @@ exports.postUser = function(req,res,next){
   			 });
   }
 
+  exports.editEntry = function(reg, res, next) {
+
+    var body = req.body;
+    var entryID = body.entryID;
+    var userID = body.userID;
+    var date = body.date;
+    var photoLocation = body.photoLocation;
+    var entryDescription = body.entryDescription;
+    var rating = body.rating;
+
+
+		client.query("UPDATE skin.entry SET entryID=" + entryID + "," + "userID=" + userID + ","
+    + "date=" + date + ","  + "photoLocation=" + photoLocation + ","
+    + "entryDescription=" + entryDescription + ","
+    + "rating=" + rating +
+    "where" + entryID  + "is not" + NULL + "and"
+    + userID  + "is not" + NULL + "and"
+    + date  + "is not" + NULL + "and"
+    + photoLocation + "is not" + NULL + "and"
+    + entryDescription + "is not" + NULL + "and"
+    + rating  + "is not" + NULL + 
+     ";"
+        , function(err, result) {
+					 if (err) {
+							 console.log(err);
+					 } else {
+							 console.log("Updated Entry: " + entryID);
+
+					 }
+			 });
+  }
+
  exports.getProducts = function(req,res,next){
    //Check if there is no query
    var query = req.query;
