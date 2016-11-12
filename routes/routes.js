@@ -298,8 +298,9 @@ exports.postUser = function(req,res,next){
     var name = body.name;
     var brand = body.brand;
     var userid = body.userid;
-    client.query("INSERT INTO skin.product (name, brand, userid) VALUES ($1, $2, $3)",
-    [name, brand, userid],
+    var expirydate = body.expirydate;
+    client.query("INSERT INTO skin.product (name, brand, userid, expirydate) VALUES ($1, $2, $3, $4)",
+    [name, brand, userid, expirydate],
         function(err,qres){
           if(err){
             //Err is a map return the error to the user
