@@ -193,7 +193,12 @@ exports.postUser = function(req,res,next){
    if(Object.keys(query).length == 0){
      var string = "SELECT * FROM skin.product;" ;
      //var rows = queryGetDatabase(string,"Get Products");
-     res.json(queryGetDatabase(string,"Get Products"));
+     //res.json(rows);
+     client.query(string,function(err,qres){
+       console.log(qres.rows);
+       console.log(qres);
+       res.json(qres.rows);
+     });
    }
    else{
      return next();
