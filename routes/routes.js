@@ -191,14 +191,14 @@ exports.postUser = function(req,res,next){
    //Check if there is no query
    var query = req.query;
    if(Object.keys(query).length == 0){
-     var string = "SELECT * FROM skin.product;" ;
-     //var rows = queryGetDatabase(string,"Get Products");
-     //res.json(rows);
-     client.query("SELECT * FROM skin.product",function(err,qres){
+     var string = "SELECT * FROM skin.product" ;
+     var rows = queryGetDatabase(string,"Get Products");
+     res.json(rows);
+     /*client.query("SELECT * FROM skin.product",function(err,qres){
        console.log(qres.rows);
        console.log(qres);
        res.json(qres.rows);
-     });
+     });*/
    }
    else{
      return next();
