@@ -1,7 +1,7 @@
 /* Wrapper function to query a GET request into the database
  */
-function queryGetDatabase(qString, method){
-  client.query(qString, function(err,qres){
+function queryGetDatabase(string,method){
+  client.query(string,function(err,qres){
     if(err){
       //Handle Error with a function
       console.log("Error in " + method);
@@ -46,8 +46,8 @@ exports.getUsersByName = function(req,res,next){
   if(req.query.username != ''){
     var username = req.query.username;
     //Query database
-    var s = "SELECT * FROM skin.user WHERE username =" + username  + ";";
-    var rows = queryGetDatabase(s, "Get User By Name");
+    var string = "SELECT * FROM skin.user WHERE username =" + username  + ";";
+    var rows = queryGetDatabase(string, "Get User By Name");
     res.json(rows);
   }
   else{
@@ -64,8 +64,8 @@ exports.getByEmail = function(req,res,next){
     //Add validation Checks
     var email = req.query.email;
     //Query database
-    var s = "SELECT * FROM skin.user WHERE email="+email + ";";
-    var rows = queryGetDatabase(s, "Get By Email");
+    var string = "SELECT * FROM skin.user WHERE email="+email + ";";
+    var rows = queryGetDatabase(string, "Get By Email");
     res.json(rows);
   }
   else{
@@ -106,8 +106,8 @@ exports.postUser = function(req,res,next){
   if (req.query.id != "" && req.query.date != ""){
     var id = req.query.userID;
     var date = req.query.date;
- 	 var s = "SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + ";"
-   var rows = queryGetDatabase(s, "Get entry by id and date");
+ 	 var string = "SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + ";"
+   var rows = queryGetDatabase(string, "Get entry by id and date");
    res.json(rows);
   }
   else {
@@ -191,9 +191,17 @@ exports.postUser = function(req,res,next){
    //Check if there is no query
    var query = req.query;
    if(Object.keys(query).length == 0){
-     var s = "SELECT * FROM skin.product";
-     var rows = queryGetDatabase(s,"Get Products");
-     res.json(rows);
+     /*var string = "SELECT * FROM skin.product";
+     var rows = queryGetDatabase(string,"Get Products");
+     res.json(rows);*/
+     client.query("SELECT * FROM skin.product", function(err,qres){
+       if(err) {
+         console.log("Error in " + "Get Products");
+       }
+       else{
+         res.json(qres.rows);
+       }
+     });
    }
    else{
      return next();
@@ -207,8 +215,8 @@ exports.postUser = function(req,res,next){
    //Check if we have the prod id query
    var query = req.query;
    if(query.prodid != ''){
-     var s = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
-     var rows = queryGetDatabase(s, "Get Product By ID");
+     var string = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
+     var rows = queryGetDatabase(string, "Get Product By ID");
      res.json(rows);
    }
    else{
@@ -223,8 +231,8 @@ exports.postUser = function(req,res,next){
    //Check if the desired query is there
    var query = req.query;
    if(query.brand != ''){
-     var s = "SELECT * FROM skin.product WHERE brand=" + query.brand + ";";
-     var rows = queryGetDatabase(s,"Get Products By Brand");
+     var string = "SELECT * FROM skin.product WHERE brand=" + query.brand + ";";
+     var rows = queryGetDatabase(string,"Get Products By Brand");
      res.json(rows);
    }
    else{
@@ -239,8 +247,8 @@ exports.postUser = function(req,res,next){
     var query = req.query;
     if(query.rating != ''){
       var ratingInt = parseInt(query.rating);
-      var s = "SELECT * FROM skin.productreview WHERE rating=" + ratingInt + ";";
-      var rows = queryGetDatabase(s, "Get Products By Rating");
+      var string = "SELECT * FROM skin.productreview WHERE rating=" + ratingInt + ";";
+      var rows = queryGetDatabase(string, "Get Products By Rating");
       res.json(rows);
     }
     else{
@@ -254,8 +262,8 @@ exports.postUser = function(req,res,next){
   exports.getUserProducts = function(req,res,next){
     var query = req.query;
     if(query.userid != ''){
-      var s = "SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";";
-      var rows = queryGetDatabase(s, "Get User Products");
+      var string = "SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";";
+      var rows = queryGetDatabase(string, "Get User Products");
       res.json(rows);
     }
     else{
