@@ -196,7 +196,7 @@ exports.postUser = function(req,res,next){
      res.json(rows);*/
      client.query("SELECT * FROM skin.product", function(err,qres){
        if(err) {
-         console.log("Error in " + "Get Products");
+         console.log("Error in Get Products");
        }
        else{
          res.json(qres.rows);
@@ -215,9 +215,17 @@ exports.postUser = function(req,res,next){
    //Check if we have the prod id query
    var query = req.query;
    if(query.prodid != ''){
-     var string = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
+     /*var string = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
      var rows = queryGetDatabase(string, "Get Product By ID");
-     res.json(rows);
+     res.json(rows);*/
+     client.query("SELECT * FROM skin.product WHERE ID=" + query.prodid, function(err,qres){
+       if(err) {
+         console.log("Error in Get Product By ID");
+       }
+       else{
+         res.json(qres.rows);
+       }
+     });
    }
    else{
      return next();
@@ -231,9 +239,17 @@ exports.postUser = function(req,res,next){
    //Check if the desired query is there
    var query = req.query;
    if(query.brand != ''){
-     var string = "SELECT * FROM skin.product WHERE brand=" + query.brand + ";";
+     /*var string = "SELECT * FROM skin.product WHERE brand=" + query.brand + ";";
      var rows = queryGetDatabase(string,"Get Products By Brand");
-     res.json(rows);
+     res.json(rows);*/
+     client.query("SELECT * FROM skin.product WHERE brand=" + query.brand, function(err,qres){
+       if(err) {
+         console.log("Error in " + "Get Product By ID");
+       }
+       else{
+         res.json(qres.rows);
+       }
+     });
    }
    else{
      return next();
@@ -281,11 +297,13 @@ exports.postUser = function(req,res,next){
     var body = req.body;
     var name = body.name;
     var brand = body.brand;
-    client.query("INSERT INTO skin.product VALUES ($1, $2, $3) WHERE NOT EXISTS (SELECT name=" + name + " and brand=" + brand + ";", [productID, name, brand],
+    var userid = body.userid;
+    client.query("INSERT INTO skin.product (name, brand, userid) VALUES ($1, $2, $3)",
+    [name, brand, userid],
         function(err,qres){
           if(err){
             //Err is a map return the error to the user
-            return res.send("Error\n");
+            return res.send("Error with addProduct \n");
           }
           else{
             console.log("New product added to product\n");
