@@ -84,7 +84,7 @@ exports.postUser = function(req,res,next){
   var email = req.body.email;
   //perform the validation checks
   // Query Database
-  client.query("INSERT INTO skin.user (username,password,email) VALUES($1::text,$2::text,$3::text)",
+  client.query("INSERT INTO skin.user (username,password,email) VALUES($1, $2, $3)",
         [username,password,email],
       function(err,qres){
         if(err){
