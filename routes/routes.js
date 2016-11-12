@@ -192,16 +192,16 @@ exports.postUser = function(req,res,next){
    var query = req.query;
    if(Object.keys(query).length == 0){
      var s = "SELECT * FROM skin.product";
-     //var rows = queryGetDatabase(string,"Get Products");
-     //res.json(rows);
-     client.query(s, function(err,qres){
+     var rows = queryGetDatabase(s,"Get Products");
+     res.json(rows);
+     /*client.query(s, function(err,qres){
        if(err){
          console.log("Error in " + "Get Products");
        }
        else{
          res.json(qres.rows);
        }
-     });
+     });*/
      /*client.query("SELECT * FROM skin.product",function(err,qres){
        console.log(qres.rows);
        console.log(qres);
