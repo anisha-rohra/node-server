@@ -307,6 +307,7 @@ exports.postUser = function(req,res,next){
           }
           else{
             console.log("New product added to product\n");
+            return req.body;
           }
         });
   }
