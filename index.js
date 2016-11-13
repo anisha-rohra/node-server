@@ -191,12 +191,6 @@ client.query(query, function (err, qres) {
 			}
 		});*/
 
-var options = {
-    requestCert: true,
-    rejectUnauthorized: false,
-};
-
-
-http.createServer(options, app).listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
