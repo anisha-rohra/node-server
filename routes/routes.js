@@ -64,7 +64,7 @@ exports.getByEmail = function(req,res,next){
     //Add validation Checks
     var email = req.query.email;
     //Query database
-    var string = "SELECT * FROM skin.entry WHERE email="+email + ";";
+    var string = "SELECT * FROM skin.user WHERE email="+email + ";";
     var rows = queryGetDatabase(string, "Get By Email");
     res.json(rows);
   }
@@ -120,6 +120,7 @@ exports.getEntryByEntryID = function(req,res,next){
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
   if (req.query.entryID != ""){
     var id = req.query.entryID;
+    console.log(id);
  	  var string = "SELECT * FROM skin.entry where entry = "+ id;
     var rows = queryGetDatabase(string, "Get entry by entry id");
     res.json(rows);
