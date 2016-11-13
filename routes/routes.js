@@ -100,6 +100,20 @@ exports.postUser = function(req,res,next){
 /*
  *
  */
+ exports.getEntriesByUserID = function(req, res, next){
+   if (req.query.userID != ""){
+     var id = 1 ;//req.query.userID;
+     client.query("SELECT * FROM skin.entry where userid=" + id + ";",function(err,qres){
+       console.log(qres.rows);
+       console.log(qres);
+       res.json(qres.rows);
+     });
+    }
+    else{
+      return next();
+    }
+
+ }
  exports.getEntryByIDAndDate = function(req,res,next){
   //This queries the database and returns the rows from the database
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
