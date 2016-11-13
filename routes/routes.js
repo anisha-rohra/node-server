@@ -102,7 +102,7 @@ exports.postUser = function(req,res,next){
  */
  exports.getEntriesByUserID = function(req, res, next){
    if (req.query.userID != ""){
-     var id = 1 ;//req.query.userID;
+     var id = req.query.userID;
      client.query("SELECT * FROM skin.entry where userid=" + id + ";",function(err,qres){
        console.log(qres.rows);
        console.log(qres);
