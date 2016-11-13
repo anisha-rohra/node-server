@@ -191,13 +191,15 @@ client.query(query, function (err, qres) {
 			}
 		});*/
 
-var server = https.createServer({
-		requestCert:  true,
-		rejectUnauthorized: false
-}, app).listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+var options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt'),
+    ca: fs.readFileSync('devices_ca.crt'),
+    requestCert: true,
+    rejectUnauthorized: false,
+};
 
-app.listen(app.get('port'), function() {
+
+https.createServer(options, app).listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
