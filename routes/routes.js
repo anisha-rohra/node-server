@@ -120,10 +120,6 @@ exports.getEntryByEntryID = function(req,res,next){
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
   if (req.query.entryID != ""){
     var id = req.query.entryID;
-    console.log(id);
- 	  //var string = "SELECT * FROM skin.entry where entry = "+ id;
-    //var rows = queryGetDatabase(string, "Get entry by entry id");
-    //res.json(rows);
     client.query('SELECT * FROM skin.entry WHERE id = $1', [id], function(err, result) {
       if (err) {
           console.log(err);
@@ -166,7 +162,6 @@ exports.getEntryByEntryID = function(req,res,next){
     var photoLocation = body.photoLocation;
     var entryDescription = body.entryDescription;
     var rating = body.rating;
-
 
 		client.query("UPDATE skin.entry SET entryID=" + entryID + "," + "userID=" + userID + ","
     + "date=" + date + ","  + "photoLocation=" + photoLocation + ","
