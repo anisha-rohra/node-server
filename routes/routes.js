@@ -147,7 +147,7 @@ exports.postUser = function(req,res,next){
   					 }
   			 });*/
 
-      client.query(req.body, function(err, result) {
+      client.query('INSERT INTO skin.entry (userID) VALUES (1)', function(err, result) {
         if (err) {
             console.log(err);
         } else {
