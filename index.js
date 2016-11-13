@@ -195,7 +195,7 @@ client.query(query, function (err, qres) {
   //console.log('Node app is running on port', app.get('port'));
 //});
 
-https.createServer({
+var server = https.createServer({
 		requestCert:  true,
 		rejectUnauthorized: false
 }, app).listen(app.get('port'), function() {
