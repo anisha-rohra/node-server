@@ -115,13 +115,13 @@ exports.postUser = function(req,res,next){
 
  }
 
-exports.getEntryByID = function(req,res,next){
+exports.getEntryByEntryID = function(req,res,next){
   //This queries the database and returns the rows from the database
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
-  if (req.query.id != ""){
-    var id = req.query.userID;
- 	  var string = "SELECT * FROM skin.entry where userid = "+ id;
-    var rows = queryGetDatabase(string, "Get entry by id and date");
+  if (req.query.entryID != ""){
+    var id = req.query.entryID;
+ 	  var string = "SELECT * FROM skin.entry where entry = "+ id;
+    var rows = queryGetDatabase(string, "Get entry by entry id");
     res.json(rows);
   }
   else {
