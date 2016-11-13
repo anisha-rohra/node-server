@@ -64,7 +64,7 @@ exports.getByEmail = function(req,res,next){
     //Add validation Checks
     var email = req.query.email;
     //Query database
-    var string = "SELECT * FROM skin.user WHERE email="+email + ";";
+    var string = "SELECT * FROM skin.entry WHERE email="+email + ";";
     var rows = queryGetDatabase(string, "Get By Email");
     res.json(rows);
   }
