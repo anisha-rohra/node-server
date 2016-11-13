@@ -192,9 +192,6 @@ client.query(query, function (err, qres) {
 		});*/
 
 var options = {
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.crt'),
-    ca: fs.readFileSync('devices_ca.crt'),
     requestCert: true,
     rejectUnauthorized: false,
 };
