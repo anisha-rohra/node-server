@@ -117,15 +117,14 @@ exports.postUser = function(req,res,next){
   exports.addEntry = function(req, res, next) {
 
       var body = req.body;
-      var entryID = body.entryID;
       var userID = body.userID;
       var date = body.date;
   		var photoLocation = body.photoLocation;
   		var entryDescription = body.entryDescription;
   		var rating = body.rating;
 
-  		client.query('INSERT INTO "skin.entry" VALUES ($1, $2, $3, $4, $5, $6);',
-  			 [entryID, userID, date, photoLocation, entryDescription,rating], function(err, result) {
+  		client.query('INSERT INTO "skin.entry" VALUES (DEFAULT, $1, $2, $3, $4, $5);',
+  			 [userID, date, photoLocation, entryDescription, rating], function(err, result) {
   					 if (err) {
   							 console.log(err);
   					 } else {
