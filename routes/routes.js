@@ -132,7 +132,7 @@ exports.postUser = function(req,res,next){
   exports.addEntry = function(req, res, next) {
       console.log("got here");
 
-      var body = req.body;
+      /*var body = req.body;
       var userID = body.userID;
   		var photoLocation = body.photoLocation;
   		var entryDescription = body.entryDescription;
@@ -145,7 +145,15 @@ exports.postUser = function(req,res,next){
   					 } else {
   							 console.log("New entry inserted: ");
   					 }
-  			 });
+  			 });*/
+
+      client.query(req.body, function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("New entry inserted: ");
+        }
+      });
   }
 
   exports.editEntry = function(reg, res, next) {
