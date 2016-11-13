@@ -134,13 +134,12 @@ exports.postUser = function(req,res,next){
 
       var body = req.body;
       var userID = body.userID;
-      var date = body.date;
   		var photoLocation = body.photoLocation;
   		var entryDescription = body.entryDescription;
   		var rating = body.rating;
 
-  		client.query('INSERT INTO skin.entry (userID, date, photoLocation, description, rating) VALUES ($1, $2, $3, $4, $5)',
-  			 [userID, date, photoLocation, entryDescription, rating], function(err, result) {
+  		client.query('INSERT INTO skin.entry (userID, photoLocation, description, rating) VALUES ($1, $2, $3, $4)',
+  			 [userID, photoLocation, entryDescription, rating], function(err, result) {
   					 if (err) {
   							 console.log(err);
   					 } else {
