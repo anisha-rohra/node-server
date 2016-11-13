@@ -163,17 +163,8 @@ exports.getEntryByEntryID = function(req,res,next){
     var entryDescription = body.entryDescription;
     var rating = body.rating;
 
-		client.query("UPDATE skin.entry SET entryID=" + entryID + "," + "userID=" + userID + ","
-    + "date=" + date + ","  + "photoLocation=" + photoLocation + ","
-    + "entryDescription=" + entryDescription + ","
-    + "rating=" + rating +
-    "where" + entryID  + "is not" + NULL + "and"
-    + userID  + "is not" + NULL + "and"
-    + date  + "is not" + NULL + "and"
-    + photoLocation + "is not" + NULL + "and"
-    + entryDescription + "is not" + NULL + "and"
-    + rating  + "is not" + NULL +
-     ";"
+		client.query('UPDATE skin.entry SET date=$1 WHERE entryID=$2 and userID=$3',
+    [date,entryID,userID]
         , function(err, result) {
 					 if (err) {
 							 console.log(err);
@@ -183,6 +174,67 @@ exports.getEntryByEntryID = function(req,res,next){
 					 }
 			 });
   }
+
+  exports.editPhoto = function(req,res,next){
+    //Check if the request query has username
+    var entryID = body.entryID;
+    var userID = body.userID;
+    if(req.query.photoLocation != ''){
+      var photo = req.query.photoLocation;
+      //Query database
+      client.query('UPDATE skin.entry SET photoLocation=$1 WHERE entryID=$2 and userID=$3',
+      [photoLocation,entryID,userID]
+          , function(err, result) {
+  					 if (err) {
+  							 console.log(err);
+  					 } else {
+  							 console.log("Updated Entry: " + entryID);
+
+  					 }
+  			 });
+    }
+  }
+
+  exports.editDescription = function(req,res,next){
+    //Check if the request query has username
+    var entryID = body.entryID;
+    var userID = body.userID;
+    if(req.query.description != ''){
+      var description = req.query.description;
+      //Query database
+      client.query('UPDATE skin.entry SET description=$1 WHERE entryID=$2 and userID=$3',
+      [description,entryID,userID]
+          , function(err, result) {
+             if (err) {
+                 console.log(err);
+             } else {
+                 console.log("Updated Entry: " + entryID);
+
+             }
+         });
+    }
+  }
+
+  exports.editRating = function(req,res,next){
+    //Check if the request query has username
+    var entryID = body.entryID;
+    var userID = body.userID;
+    if(req.query.rating != ''){
+      var photo = req.query.rating;
+      //Query database
+      client.query('UPDATE skin.entry SET rating=$1 WHERE entryID=$2 and userID=$3',
+      [rating,entryID,userID]
+          , function(err, result) {
+             if (err) {
+                 console.log(err);
+             } else {
+                 console.log("Updated Entry: " + entryID);
+
+             }
+         });
+    }
+  }
+
 
   exports.deleteEntry = function(req,res,next){
 
