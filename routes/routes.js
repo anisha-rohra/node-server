@@ -114,18 +114,18 @@ exports.postUser = function(req,res,next){
     }
 
  }
- exports.getEntryByIDAndDate = function(req,res,next){
+
+exports.getEntryByID = function(req,res,next){
   //This queries the database and returns the rows from the database
  	//TimeStamp entryDate = '2016-11-09 17:55:20.268058';
-  if (req.query.id != "" && req.query.date != ""){
+  if (req.query.id != ""){
     var id = req.query.userID;
-    var date = req.query.date;
- 	 var string = "SELECT * FROM skin.entry where userid = "+ id + "and date = " + date + ";"
-   var rows = queryGetDatabase(string, "Get entry by id and date");
-   res.json(rows);
+ 	  var string = "SELECT * FROM skin.entry where userid = "+ id;
+    var rows = queryGetDatabase(string, "Get entry by id and date");
+    res.json(rows);
   }
   else {
-    res.send('Error')
+    res.send('Error');
   }
 }
 
