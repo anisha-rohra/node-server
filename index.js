@@ -191,13 +191,13 @@ client.query(query, function (err, qres) {
 			}
 		});*/
 
-//app.listen(app.get('port'), function() {
-  //console.log('Node app is running on port', app.get('port'));
-//});
-
 var server = https.createServer({
 		requestCert:  true,
 		rejectUnauthorized: false
 }, app).listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
+app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
