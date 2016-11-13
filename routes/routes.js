@@ -133,7 +133,7 @@ exports.postUser = function(req,res,next){
       console.log("got here");
 
       var body = req.body;
-      var date = req.date;
+      var date = body.date;
       var userID = body.userID;
   		var photoLocation = body.photoLocation;
   		var entryDescription = body.entryDescription;
