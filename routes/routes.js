@@ -128,7 +128,9 @@ exports.postUser = function(req,res,next){
     res.send('Error')
   }
 }
+
   exports.addEntry = function(req, res, next) {
+      console.log("got here");
 
       var body = req.body;
       var userID = body.userID;
@@ -142,8 +144,7 @@ exports.postUser = function(req,res,next){
   					 if (err) {
   							 console.log(err);
   					 } else {
-  							 console.log("New entry inserted: " + entryID);
-
+  							 console.log("New entry inserted: ");
   					 }
   			 });
   }
