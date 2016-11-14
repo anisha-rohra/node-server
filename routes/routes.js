@@ -167,7 +167,8 @@ exports.getEntryByEntryID = function(req,res,next){
     [date,photoLocation,entryDescription,rating,entryID,userID]
         , function(err, result) {
 					 if (err) {
-							 console.log(err);
+                console.log("GOT HERE BUT IT SHOULDNT'T");
+							  console.log(err);
 					 } else {
 							 console.log("Updated Entry: " + entryID);
 
