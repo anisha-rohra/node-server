@@ -101,7 +101,7 @@ exports.postUser = function(req,res,next){
  exports.getEntriesByUserID = function(req, res, next){
    if (req.query.userID != ""){
      var id = req.query.userID;
-     client.query("SELECT * FROM skin.entry where userid=" + id + ";",function(err,qres){
+     client.query("SELECT * FROM skin.entry where userid=" + id + "ORDER BY date DESC",function(err,qres){
        res.json(qres.rows);
      });
     }
