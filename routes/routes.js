@@ -25,9 +25,7 @@ function queryGetDatabase(string,method){
     //  var string = "SELECT * FROM skin.user;";
     //  var rows = queryGetDatabase(string,"Get users");
     //  res.json(rows);
-    client.query("SELECT * FROM skin.user",function(err,qres){
-      console.log(qres.rows);
-      console.log(qres);
+    client.query("SELECT * FROM skin.user",function(err,qres) {
       res.json(qres.rows);
     });
    }
@@ -104,8 +102,6 @@ exports.postUser = function(req,res,next){
    if (req.query.userID != ""){
      var id = req.query.userID;
      client.query("SELECT * FROM skin.entry where userid=" + id + ";",function(err,qres){
-       console.log(qres.rows);
-       console.log(qres);
        res.json(qres.rows);
      });
     }
@@ -134,7 +130,6 @@ exports.getEntryByEntryID = function(req,res,next){
 }
 
   exports.addEntry = function(req, res, next) {
-      console.log("got here");
 
       var body = req.body;
       var date = body.date;
@@ -162,6 +157,11 @@ exports.getEntryByEntryID = function(req,res,next){
     var photoLocation = body.photoLocation;
     var entryDescription = body.entryDescription;
     var rating = body.rating;
+
+    console.log(entryID);
+    console.log(userID);
+    console.log(date);
+
 
 		client.query('UPDATE skin.entry SET date=$1, photoLocation=$2,description=$3,rating=$4 WHERE ID=$5 and userID=$6',
     [date,photoLocation,entryDescription,rating,entryID,userID]
