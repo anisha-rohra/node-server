@@ -16,7 +16,7 @@ function queryGetDatabase(string,method){
  * returns them
  * Pre-Requisite: client must be the global variable that holds
  * our PostgreSQL database instance
- * Post-Rquisite: JSON object will be returned no change in database
+ * Post-Requisite: JSON object will be returned no change in database
  */
  exports.getUsers = function(req,res,next){
    // Check if the request has no query in it
@@ -25,9 +25,7 @@ function queryGetDatabase(string,method){
     //  var string = "SELECT * FROM skin.user;";
     //  var rows = queryGetDatabase(string,"Get users");
     //  res.json(rows);
-    client.query("SELECT * FROM skin.user",function(err,qres){
-      console.log(qres.rows);
-      console.log(qres);
+    client.query("SELECT * FROM skin.user",function(err,qres) {
       res.json(qres.rows);
     });
    }
@@ -104,8 +102,6 @@ exports.postUser = function(req,res,next){
    if (req.query.userID != ""){
      var id = req.query.userID;
      client.query("SELECT * FROM skin.entry where userid=" + id + ";",function(err,qres){
-       console.log(qres.rows);
-       console.log(qres);
        res.json(qres.rows);
      });
     }
@@ -134,7 +130,6 @@ exports.getEntryByEntryID = function(req,res,next){
 }
 
   exports.addEntry = function(req, res, next) {
-      console.log("got here");
 
       var body = req.body;
       var date = body.date;
@@ -153,7 +148,7 @@ exports.getEntryByEntryID = function(req,res,next){
   			 });
   }
 
- exports.editEntry = function(reg, res, next) {
+ exports.editEntry = function(req, res, next) {
 
     var body = req.body;
     var entryID = body.entryID;
@@ -163,11 +158,17 @@ exports.getEntryByEntryID = function(req,res,next){
     var entryDescription = body.entryDescription;
     var rating = body.rating;
 
+    console.log(entryID);
+    console.log(userID);
+    console.log(date);
+
+
 		client.query('UPDATE skin.entry SET date=$1, photoLocation=$2,description=$3,rating=$4 WHERE ID=$5 and userID=$6',
     [date,photoLocation,entryDescription,rating,entryID,userID]
         , function(err, result) {
 					 if (err) {
-							 console.log(err);
+                console.log("GOT HERE BUT IT SHOULDNT'T");
+							  console.log(err);
 					 } else {
 							 console.log("Updated Entry: " + entryID);
 
