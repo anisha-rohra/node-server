@@ -153,7 +153,7 @@ exports.getEntryByEntryID = function(req,res,next){
   			 });
   }
 
- exports.editEntry = function(reg, res, next) {
+ exports.editEntry = function(req, res, next) {
 
     var body = req.body;
     var entryID = body.entryID;
