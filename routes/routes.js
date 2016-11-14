@@ -163,7 +163,7 @@ exports.getEntryByEntryID = function(req,res,next){
     var entryDescription = body.entryDescription;
     var rating = body.rating;
 
-		client.query('UPDATE skin.entry SET date=$1, photoLocation=$2,description=$3,rating=$4 WHERE entryID=$5 and userID=$6',
+		client.query('UPDATE skin.entry SET date=$1, photoLocation=$2,description=$3,rating=$4 WHERE ID=$5 and userID=$6',
     [date,photoLocation,entryDescription,rating,entryID,userID]
         , function(err, result) {
 					 if (err) {
