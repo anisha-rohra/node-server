@@ -163,8 +163,8 @@ exports.getEntryByEntryID = function(req,res,next){
     var entryDescription = body.entryDescription;
     var rating = body.rating;
 
-		client.query('UPDATE skin.entry SET date=$1 WHERE entryID=$2 and userID=$3',
-    [date,entryID,userID]
+		client.query('UPDATE skin.entry SET date=$1, photoLocation=$2,entryDescription=$3,rating=$4 WHERE entryID=$5 and userID=$6',
+    [date,photoLocation,entryDescription,rating,entryID,userID]
         , function(err, result) {
 					 if (err) {
 							 console.log(err);
@@ -175,65 +175,10 @@ exports.getEntryByEntryID = function(req,res,next){
 			 });
   }
 
-  exports.editPhoto = function(req,res,next){
-    //Check if the request query has username
-    var entryID = body.entryID;
-    var userID = body.userID;
-    if(req.query.photoLocation != ''){
-      var photo = req.query.photoLocation;
-      //Query database
-      client.query('UPDATE skin.entry SET photoLocation=$1 WHERE entryID=$2 and userID=$3',
-      [photoLocation,entryID,userID]
-          , function(err, result) {
-  					 if (err) {
-  							 console.log(err);
-  					 } else {
-  							 console.log("Updated Entry: " + entryID);
 
-  					 }
-  			 });
-    }
-  }
 
-  exports.editDescription = function(req,res,next){
-    //Check if the request query has username
-    var entryID = body.entryID;
-    var userID = body.userID;
-    if(req.query.description != ''){
-      var description = req.query.description;
-      //Query database
-      client.query('UPDATE skin.entry SET description=$1 WHERE entryID=$2 and userID=$3',
-      [description,entryID,userID]
-          , function(err, result) {
-             if (err) {
-                 console.log(err);
-             } else {
-                 console.log("Updated Entry: " + entryID);
 
-             }
-         });
-    }
-  }
 
-  exports.editRating = function(req,res,next){
-    //Check if the request query has username
-    var entryID = body.entryID;
-    var userID = body.userID;
-    if(req.query.rating != ''){
-      var photo = req.query.rating;
-      //Query database
-      client.query('UPDATE skin.entry SET rating=$1 WHERE entryID=$2 and userID=$3',
-      [rating,entryID,userID]
-          , function(err, result) {
-             if (err) {
-                 console.log(err);
-             } else {
-                 console.log("Updated Entry: " + entryID);
-
-             }
-         });
-    }
-  }
 
 
   exports.deleteEntry = function(req,res,next){
