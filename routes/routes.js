@@ -369,8 +369,9 @@ exports.getEntryByEntryID = function(req,res,next){
     var body = req.body;
     var userID = body.userID;
     var issue = body.issue;
-    var queryToGo = "SELECT * FROM skin.MyIssue, skin.IssueTagged, skin.Entry
-    where  skin.MyIssue.name =" + issue + 
+    //
+    var queryToGo = "SELECT * FROM skin.MyIssue, skin.IssueTagged, skin.Entry" +
+    "where  skin.MyIssue.name =" + issue + 
     "and skin.IssueTagged.entryID = skin.MyIssue.ID" +
     "and skin.Entry.ID = Skin.IssueTagged.entryID;" 
     client.query(queryToGo, function(err,qres){
@@ -383,3 +384,20 @@ exports.getEntryByEntryID = function(req,res,next){
      });
   }
   //we should also have a get entries by products used
+
+  exports.getEntriesByProductUsed = function(req,res, next){
+    var body = req.body;
+    var userID = body.userID;
+    var product = body.product;
+    var queryToGo = "SELECT * FROM skin.Entry, skin.Product"
+    + "where skin.Product.name =" + product + 
+    "and skin.Product.ID = skin.Entry.ID;" 
+    client.query(queryToGo, function(err,qres){
+       if(err) {
+         console.log("Error in get entries by Product");
+       }
+       else{
+         res.json(qres.rows);
+       }
+     });
+  }
