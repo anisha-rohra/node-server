@@ -16,7 +16,7 @@ function queryGetDatabase(string,method){
  * returns them
  * Pre-Requisite: client must be the global variable that holds
  * our PostgreSQL database instance
- * Post-Rquisite: JSON object will be returned no change in database
+ * Post-Requisite: JSON object will be returned no change in database
  */
  exports.getUsers = function(req,res,next){
    // Check if the request has no query in it
