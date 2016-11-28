@@ -371,9 +371,9 @@ exports.getEntryByEntryID = function(req,res,next){
     var issue = body.issue;
     //
     var queryToGo = "SELECT * FROM skin.MyIssue, skin.IssueTagged, skin.Entry" +
-    "where  skin.MyIssue.name =" + issue + 
+    "where  skin.MyIssue.name =" + issue +
     "and skin.IssueTagged.entryID = skin.MyIssue.ID" +
-    "and skin.Entry.ID = Skin.IssueTagged.entryID;" 
+    "and skin.Entry.ID = Skin.IssueTagged.entryID;"
     client.query(queryToGo, function(err,qres){
        if(err) {
          console.log("Error in get entries by Issue");
@@ -390,8 +390,8 @@ exports.getEntryByEntryID = function(req,res,next){
     var userID = body.userID;
     var product = body.product;
     var queryToGo = "SELECT * FROM skin.Entry, skin.Product"
-    + "where skin.Product.name =" + product + 
-    "and skin.Product.ID = skin.Entry.ID;" 
+    + "where skin.Product.name =" + product +
+    "and skin.Product.ID = skin.Entry.ID;"
     client.query(queryToGo, function(err,qres){
        if(err) {
          console.log("Error in get entries by Product");
@@ -400,4 +400,11 @@ exports.getEntryByEntryID = function(req,res,next){
          res.json(qres.rows);
        }
      });
+  }
+
+  exports.uploadPhoto = function(req,res,next){
+    fs.writeFile('test-photo', req.body, function(err){
+        if (err) throw err
+        console.log('File saved.')
+    });
   }
