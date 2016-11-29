@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var express = require('express');
 var routes = require('./routes/routes');
 var app = express();
+var path = require('path');
 
 // Establish database connection
 pg.defaults.ssl = true; //always keep true!!!
@@ -18,6 +19,10 @@ client.connect(function(err) {
 		return console.error('could not connect to postgres', err);
 	}
 });
+
+//Constants
+var TARGET_PATH = path.resolve(__dirname, '../photos/');
+var IMAGE_TYPES = ['image/jpeg', 'image/png'];
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -68,6 +73,7 @@ app.post('/products', routes.addProduct, routes.addMyProduct);
 app.post('/delete-my-product', routes.deleteMyProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
+app.get('/get-photo', routes.getPhoto);
 
 //app.get('/entry', routes.getEntryByIDAndDate);
 
