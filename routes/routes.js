@@ -194,7 +194,7 @@ exports.getEntryByEntryID = function(req,res,next){
             res.send("Success\n");
           }
         });
-  }
+  };
 
  exports.getProducts = function(req,res,next){
    //Check if there is no query
