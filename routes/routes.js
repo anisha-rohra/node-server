@@ -298,7 +298,7 @@ exports.getEntryByEntryID = function(req,res,next){
         if (err) {
           res.send("Error, query failed");
         } else {
-          req.json(qres.rows);
+          res.json(qres.rows);
         }
       });
     } else {
