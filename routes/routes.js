@@ -313,6 +313,7 @@ exports.getEntryByEntryID = function(req,res,next){
       });
     } else {
       res.send("Error, no entryID provided in getProductsByEntry");
+      return next();
     }
   }
 
