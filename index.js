@@ -67,10 +67,10 @@ app.post('/edit-entry', routes.editEntry);
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
-//app.post('/products', routes.addProduct, routes.addMyProduct);
 //app.post('/delete-my-product', routes.deleteMyProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
+app.get('/photo', routes.getPhoto);
 
 //app.get('/user-products', routes.getProductsByEntry);
 
