@@ -296,7 +296,7 @@ exports.getEntryByEntryID = function(req,res,next){
     if(query.userid != ''){
       client.query("SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";", function(err, qres) {
         if (err) {
-          req.send("Error, query failed");
+          res.send("Error, query failed");
         } else {
           req.json(qres.rows);
         }
