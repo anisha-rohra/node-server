@@ -292,6 +292,7 @@ exports.getEntryByEntryID = function(req,res,next){
    */
   exports.getUserProducts = function(req,res,next){
     var query = req.query;
+    console.log(req.query.userid);
     if(query.userid != ''){
       var string = "SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";";
       var rows = queryGetDatabase(string, "Get User Products");
