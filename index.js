@@ -67,7 +67,7 @@ app.post('/edit-entry', routes.editEntry);
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct, routes.addMyProduct);
-app.post('/delete-my-product', routes.deleteMyProduct);
+//app.post('/delete-my-product', routes.deleteMyProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
 
