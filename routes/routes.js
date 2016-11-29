@@ -1,3 +1,7 @@
+var uuidV4 = require('uuid/v4');
+var path = require('path');
+var fs = require('fs');
+
 /* Wrapper function to query a GET request into the database
  */
 function queryGetDatabase(string,method){
@@ -129,7 +133,7 @@ exports.getEntryByEntryID = function(req,res,next){
   }
 }
 
-  exports.addEntry = function(req, res, next) {
+  /*exports.addEntry = function(req, res, next) {
 
       var body = req.body;
       var date = body.date;
@@ -146,7 +150,48 @@ exports.getEntryByEntryID = function(req,res,next){
   							 console.log("New entry inserted: ");
   					 }
   			 });
+  }*/
+
+
+exports.addEntry = function(req, res, next){
+  var body = req.body;
+  var date = body.date;
+  var userID = body.userID;
+  var entryDescription = body.entryDescription;
+  var rating = body.rating;
+  if (req.body.photo != '') {
+    console.log("Adding entry with photo.")
+    var photoData = body.photo.replace(/^data:image\/\w+;base64,/, '');
+    var photoName = uuidV4() + '.jpg'
+
+    fs.writeFile(path.resolve(__dirname, '../photos/') + '/' + photoName,
+          photoData, 'base64', function(err){
+      if (err) {
+        console.log('Error uploading photo to server: ' + err);
+      } else {
+        console.log('Photo saved to server.');
+        client.query('INSERT INTO skin.entry (userID, description, rating, date, photoLocation) VALUES ($1, $2, $3, $4, $5)',
+        [userID, entryDescription, rating, date, photoName], function(err, result) {
+          if (err) {
+            console.log("Error inserting entry with photo: " + err);
+          } else {
+            console.log("Inserted new entry with photo.");
+          }
+        });
+      }
+    });
+  } else {
+    console.log("Adding entry without photo");
+    client.query('INSERT INTO skin.entry (userID, description, rating, date) VALUES ($1, $2, $3, $4)',
+        [userID, entryDescription, rating, date], function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Inserted new entry without photo.");
+      }
+    });
   }
+}
 
  exports.editEntry = function(req, res, next) {
 

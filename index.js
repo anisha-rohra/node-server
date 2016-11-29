@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var express = require('express');
 var routes = require('./routes/routes');
 var app = express();
+var path = require('path');
+var uuidV4 = require('uuid/v4');
 
 // Establish database connection
 pg.defaults.ssl = true; //always keep true!!!
