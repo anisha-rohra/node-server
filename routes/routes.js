@@ -433,6 +433,6 @@ exports.addEntry = function(req, res, next){
 
 exports.getPhoto = function(req,res, next){
   if (req.query.name != "") {
-    res.sendFile(path.resolve(__dirname, '../photos/') + '/' + req.body.name);
+    res.sendFile(path.resolve(__dirname, '../photos/') + '/' + req.query.name);
   }
 }
