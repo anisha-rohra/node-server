@@ -69,7 +69,7 @@ app.post('/delete-my-product', routes.deleteMyProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
 
-app.get('/user-products', routes.getUserProducts);
+app.get('/user-products', routes.getProductsByEntry);
 
 //app.get('/entry', routes.getEntryByIDAndDate);
 

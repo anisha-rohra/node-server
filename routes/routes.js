@@ -176,12 +176,6 @@ exports.getEntryByEntryID = function(req,res,next){
 			 });
   }
 
-
-
-
-
-
-
   exports.deleteEntry = function(req,res,next){
 
     var body = req.body;
@@ -296,13 +290,29 @@ exports.getEntryByEntryID = function(req,res,next){
     if(query.userid != ''){
       client.query("SELECT * FROM skin.product WHERE userID=" + query.userid + ";", function(err, qres) {
         if (err) {
-          res.send("Error, query failed");
+          res.send("Error, getUserProducts query failed");
         } else {
           res.json(qres.rows);
         }
       });
     } else {
-      res.send("Error, no userID provided");
+      res.send("Error, no userID provided in getUserProducts");
+    }
+  }
+
+  exports.getProductsByEntry = function(req, res, next) {
+    var entryID = req.query.entryID;
+    console.log(entryID);
+    if (entryID != '') {
+      client.query("SELECT * FROM skin.productsUsed WHERE entryID = " + entryID, function(err, qres) {
+        if (err) {
+          res.send("Error, getProductsByEntry query failed");
+        } else {
+          res.json(qres.rows);
+        }
+      });
+    } else {
+      res.send("Error, no entryID provided in getProductsByEntry");
     }
   }
 
@@ -331,44 +341,7 @@ exports.getEntryByEntryID = function(req,res,next){
         });
   }
 
-  exports.addMyProduct = function(req,res, next){
-    var body = req.body;
-    var userID = body.userID;
-    var productID = body.productID;
-    var endDate = body.endDate;
-    var expiryDate = body.expiryDate;
-    client.query("INSERT INTO skin.myProduct VALUES ($1, $2, $3, $4) ;", [DEFAULT, userID, productID, DEFAULT, endDate, expiryDate],
-        function(err,qres){
-          if(err){
-            //Err is a map return the error to the user
-            return res.send("Error\n");
-          }
-          else{
-            console.log("New product added to  my product\n");
-          }
-        });
-  }
-  exports.deleteMyProduct = function(req,res,next){
-
-    var body = req.body;
-    var productID = body.productID;
-    var userID = body.userID;
-    //perform the validation checks
-    // Query Database
-    client.query("DELETE FROM skin.myProduct WHERE productID=$1::text and userID=$2::text;",
-          [productID,userID],
-        function(err,qres){
-          if(err){
-            //Err is a map return the error to the user
-            return res.send("Duplicate Key Value\n");
-          }
-          else{
-            res.send("Success\n");
-          }
-        });
-  }
-
-    exports.getEntriesByIssue = function(req,res, next){
+  exports.getEntriesByIssue = function(req,res, next){
     var body = req.body;
     var userID = body.userID;
     var issue = body.issue;
@@ -386,8 +359,8 @@ exports.getEntryByEntryID = function(req,res,next){
        }
      });
   }
-  //we should also have a get entries by products used
 
+  //we should also have a get entries by products used
   exports.getEntriesByProductUsed = function(req,res, next){
     var body = req.body;
     var userID = body.userID;
