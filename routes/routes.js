@@ -292,15 +292,17 @@ exports.getEntryByEntryID = function(req,res,next){
    */
   exports.getUserProducts = function(req,res,next){
     var query = req.query;
-    console.log(req.query.userid);
+    console.log(query.userid);
     if(query.userid != ''){
-      var string = "SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";";
-      var rows = queryGetDatabase(string, "Get User Products");
-      res.json(rows);
-    }
-    else{
-      //This is the last in the chain so there is no next
-      req.send("Error");
+      client.query("SELECT * FROM skin.myproduct WHERE userID=" + query.userid + ";", function(err, qres) {
+        if (err) {
+          req.send("Error, query failed");
+        } else {
+          req.json(qres.rows);
+        }
+      });
+    } else {
+      res.send("Error, no userID provided");
     }
   }
 
