@@ -459,28 +459,36 @@ exports.getPhoto = function(req,res, next){
 }
 
 exports.getAvgRating = function(req, res, next) {
-  var queryToGo = "SELECT userId as user, AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Group by userId, month ORDER BY userId, month DESC";
-  client.query(queryToGo, function(err, qres) {
-    if(err) {
-      console.log("Error in getting avg ratings for entries");
-    }
-    else{
-      res.json(qres.rows);
-    }
-  })
+  if (req.query.userID != "") {
+    var id = req.query.userID;
+    var queryToGo = "SELECT userId as user, AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + 1 + "Group by userId, month ORDER BY userId, month DESC";
+    client.query(queryToGo, function(err, qres) {
+      if(err) {
+        console.log("Error in getting avg ratings for entries");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    })
+  }
+
 }
 
 exports.getMaxRating = function(req, res, next) {
-  var queryToGo = "SELECT userId as user, MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
-  "FROM Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID" +
-  "GROUP BY userId, month" +
-  "ORDER BY userId, month DESC";
-  client.query(queryToGo, function(err, qres) {
-    if(err) {
-      console.log("Error in getting max ratings for entries");
-    }
-    else{
-      res.json(qres.rows);
-    }
-  })
+  if (req.query.userID != "") {
+    var id = req.query.userID;
+    var queryToGo = "SELECT userId as user, MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
+    "FROM Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID" +
+    "WHERE userid=" + id +
+    "GROUP BY userId, month" +
+    "ORDER BY userId, month DESC";
+    client.query(queryToGo, function(err, qres) {
+      if(err) {
+        console.log("Error in getting max ratings for entries");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    })
+  }
 }
