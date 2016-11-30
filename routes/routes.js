@@ -471,9 +471,10 @@ exports.getAvgRating = function(req, res, next) {
 }
 
 exports.getMaxRating = function(req, res, next) {
-  var queryToGo = "SELECT MAX(Skin.ProductUsed.rating), MONTH(Skin.Entry.date), YEAR(Skin.Entry.date)" +
+  var queryToGo = "SELECT userId as user, MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
   "FROM Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID" +
-  "GROUP BY entryID, MONTH(Skin.Entry.date), YEAR(Skin.Entry.date)";
+  "GROUP BY userId, month" +
+  "ORDER BY userId, month DESC";
   client.query(queryToGo, function(err, qres) {
     if(err) {
       console.log("Error in getting max ratings for entries");
