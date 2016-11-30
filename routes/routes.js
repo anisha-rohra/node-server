@@ -436,3 +436,29 @@ exports.getPhoto = function(req,res, next){
     res.sendFile(path.resolve(__dirname, '../photos/') + '/' + req.query.name);
   }
 }
+
+exports.getAvgRating = function(req, res, next) {
+  var queryToGo = "SELECT AVG(rating), MONTH(date), YEAR(date) FROM Skin.Entry GROUP BY userID, MONTH(date), YEAR(date)";
+  client.query(queryToGo, function(err, qres) {
+    if(err) {
+      console.log("Error in getting avg ratings for entries");
+    }
+    else{
+      res.json(qres.rows);
+    }
+  })
+}
+
+exports.getMaxRating = function(req, res, next) {
+  var queryToGo = "SELECT MAX(Skin.ProductUsed.rating), MONTH(Skin.Entry.date), YEAR(Skin.Entry.date)" +
+  "FROM Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID" +
+  "GROUP BY entryID, MONTH(Skin.Entry.date), YEAR(Skin.Entry.date)";
+  client.query(queryToGo, function(err, qres) {
+    if(err) {
+      console.log("Error in getting max ratings for entries");
+    }
+    else{
+      res.json(qres.rows);
+    }
+  })
+}
