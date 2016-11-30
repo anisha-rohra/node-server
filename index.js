@@ -67,12 +67,12 @@ app.post('/edit-entry', routes.editEntry);
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
-//app.post('/delete-my-product', routes.deleteMyProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
 app.get('/photo', routes.getPhoto);
 
-//app.get('/user-products', routes.getProductsByEntry);
+app.get('/entry-products', routes.getProductsByEntry);
+app.get('/user-products', routes.getUserProducts);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
