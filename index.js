@@ -61,7 +61,7 @@ app.post('/users',routes.postUser);
 
 app.get('/entry', routes.getEntryByEntryID);
 app.get('/entries', routes.getEntriesByUserID);
-app.post('/entry', routes.addEntry);
+app.post('/entry', routes.addEntry, routes.addEntryWithPhoto);
 app.post('/delete-entry', routes.deleteEntry);
 app.post('/edit-entry', routes.editEntry);
 

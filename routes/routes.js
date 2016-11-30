@@ -133,34 +133,16 @@ exports.getEntryByEntryID = function(req,res,next){
   }
 }
 
-  /*exports.addEntry = function(req, res, next) {
-
-      var body = req.body;
-      var date = body.date;
-      var userID = body.userID;
-  		var photoLocation = body.photoLocation;
-  		var entryDescription = body.entryDescription;
-  		var rating = body.rating;
-
-  		client.query('INSERT INTO skin.entry (userID, photoLocation, description, rating, date) VALUES ($1, $2, $3, $4, $5)',
-  			 [userID, photoLocation, entryDescription, rating, date], function(err, result) {
-  					 if (err) {
-  							 console.log(err);
-  					 } else {
-  							 console.log("New entry inserted: ");
-  					 }
-  			 });
-  }*/
-
-
-exports.addEntry = function(req, res, next){
-  var body = req.body;
-  var date = body.date;
-  var userID = body.userID;
-  var entryDescription = body.entryDescription;
-  var rating = body.rating;
+// Save photo for new entry to the file system. Doesn't work with heroku
+/*exports.addEntryWithPhoto = function(req, res, next){
+  console.log("got to add entry with photo");
   if (req.body.photo != '') {
-    console.log("Adding entry with photo.")
+    console.log("Adding entry with photo.");
+    var body = req.body;
+    var date = body.date;
+    var userID = body.userID;
+    var entryDescription = body.entryDescription;
+    var rating = body.rating;
     var photoData = body.photo.replace(/^data:image\/\w+;base64,/, '');
     var photoName = uuidV4() + '.jpg'
 
@@ -181,6 +163,43 @@ exports.addEntry = function(req, res, next){
       }
     });
   } else {
+    return next();
+  }
+}*/
+
+exports.addEntryWithPhoto = function(req, res, next){
+  console.log("got to add entry with photo");
+  if (req.body.photo != '') {
+    console.log("Adding entry with photo.");
+    var body = req.body;
+    var date = body.date;
+    var userID = body.userID;
+    var entryDescription = body.entryDescription;
+    var rating = body.rating;
+    var photoData = body.photo;
+
+    //console.log('to string: ' + photoData.toString());
+    client.query('INSERT INTO skin.entry (userID, description, rating, date, photoLocation) VALUES ($1, $2, $3, $4, $5)',
+    [userID, entryDescription, rating, date, photoData], function(err, result) {
+      if (err) {
+        console.log("Error inserting entry with photo: " + err);
+      } else {
+        console.log("Inserted new entry with photo.");
+      }
+    });
+  } else {
+    return next();
+  }
+}
+
+exports.addEntry = function(req, res, next){
+  console.log('got to addEntry');
+  if (req.body.photo == '') {
+    var body = req.body;
+    var date = body.date;
+    var userID = body.userID;
+    var entryDescription = body.entryDescription;
+    var rating = body.rating;
     console.log("Adding entry without photo");
     client.query('INSERT INTO skin.entry (userID, description, rating, date) VALUES ($1, $2, $3, $4)',
         [userID, entryDescription, rating, date], function(err, result) {
@@ -190,6 +209,8 @@ exports.addEntry = function(req, res, next){
         console.log("Inserted new entry without photo.");
       }
     });
+  } else {
+    return next();
   }
 }
 
