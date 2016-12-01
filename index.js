@@ -62,6 +62,8 @@ app.get('/entries', routes.getEntriesByUserID);
 app.post('/entry', routes.addEntry);
 app.post('/delete-entry', routes.deleteEntry);
 app.post('/edit-entry', routes.editEntry);
+app.get('/entries/avg/:userid',routes.avgEntries);
+
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct, routes.addMyProduct);
