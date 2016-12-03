@@ -75,6 +75,22 @@ exports.getByEmail = function(req,res,next){
   }
 }
 
+exports.getUserByNamePassword = function(req,res,next){
+  if (req.query.username != "" && req.query.password != ""){
+    var username = req.query.username;
+    var password = req.query.password;
+    client.query("SELECT * FROM skin.user where username=" + username + " and password=" + password,function(err,qres){
+      res.json(qres.rows);
+    });
+   }
+   else{
+     return next();
+   }
+
+}
+
+
+
 /* Function that adds a new user into our database
  *
  */
@@ -470,7 +486,7 @@ exports.getPhoto = function(req,res, next){
 exports.getAvgRating = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
-    var queryToGo = "SELECT userId as user, AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + id + "Group by userId, month ORDER BY userId, month DESC";
+    var queryToGo = "SELECT AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + id + "Group by userId, month ORDER BY userId, month DESC";
     client.query(queryToGo, function(err, qres) {
       if(err) {
         console.log("Error in getting avg ratings for entries");
@@ -486,10 +502,23 @@ exports.getAvgRating = function(req, res, next) {
 exports.getMaxRating = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
-    var queryToGo = "SELECT userId as user, MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
-    "FROM Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID AND userid=" + id +
-    "GROUP BY userId, month" +
-    "ORDER BY userId, month DESC";
+    var queryToGo = "SELECT MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
+    "FROM Skin.Entry, Skin.ProductUsed, Skin.Product WHERE Skin.Entry.id = Skin.ProductUsed.entryID AND Skin.Product.id = Skin.productused.productid AND Skin.entry.userid=" + id +
+    "GROUP BY Skin.entry.userid, month" +
+    "ORDER BY Skin.entry.userid, month DESC";
+    client.query(queryToGo, function(err, qres) {
+      if(err) {
+        console.log("Error in getting max ratings for entries");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    })
+  } else {
+    var queryToGo = "SELECT Skin.product.name as Product, MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
+    "FROM Skin.Product, Skin.Entry, Skin.ProductUsed WHERE Skin.Entry.id = Skin.ProductUsed.entryID AND Skin.product.id = Skin.productused.productId" +
+    "GROUP BY product, month" +
+    "ORDER BY product, month DESC";
     client.query(queryToGo, function(err, qres) {
       if(err) {
         console.log("Error in getting max ratings for entries");
