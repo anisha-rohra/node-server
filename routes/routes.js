@@ -75,7 +75,7 @@ exports.getByEmail = function(req,res,next){
   }
 }
 
-/*exports.getUserByNamePassword = function(req,res,next){
+exports.getUserByNamePassword = function(req,res,next){
   if (req.query.username != "" && req.query.password != ""){
     var username = req.query.username;
     var password = req.query.password;
@@ -87,7 +87,7 @@ exports.getByEmail = function(req,res,next){
      return next();
    }
 
-}*/
+}
 
 
 

@@ -57,7 +57,7 @@ app.get('/', function(request, response) {
 	// Queries: - /users?username=username
 	//					- /users?email=email
 app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
-//app.get('/user-bynamepasswd', routes.getUserByNamePassword);
+app.get('/user-bynamepasswd', routes.getUserByNamePassword);
 app.post('/users',routes.postUser);
 
 app.get('/entry', routes.getEntryByEntryID);
