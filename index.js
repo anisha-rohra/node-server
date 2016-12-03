@@ -56,7 +56,7 @@ app.get('/', function(request, response) {
 //Endpoint also handles requests with queries:
 	// Queries: - /users?username=username
 	//					- /users?email=email
-app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
+app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail, routes.getUserByNamePassword);
 app.post('/users',routes.postUser);
 
 app.get('/entry', routes.getEntryByEntryID);

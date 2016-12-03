@@ -75,6 +75,23 @@ exports.getByEmail = function(req,res,next){
   }
 }
 
+exports.getUserByNamePassword = function(req,res,next){
+  //Check if the request has email in the query
+  if(req.query.username != '' && req.query.password != ''){
+    //Add validation Checks
+    var usename = req.query.username;
+    var password = req.query.password;
+    client.query("SELECT * FROM skin.user where username=" + username " and password=" + password + ";",function(err,qres){
+      res.json(qres.rows);
+    });
+  }
+  else{
+    res.send('Error cannot get user');
+  }
+}
+
+
+
 /* Function that adds a new user into our database
  *
  */
