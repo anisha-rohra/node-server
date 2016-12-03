@@ -81,12 +81,12 @@ exports.getUserByNamePassword = function(req,res,next){
     //Add validation Checks
     var usename = req.query.username;
     var password = req.query.password;
-    client.query("SELECT * FROM skin.user where username=" + username " and password=" + password + ";",function(err,qres){
+    client.query("SELECT * FROM skin.user where username=" + username " and password=" + password,function(err,qres){
       res.json(qres.rows);
-    });
+      });
   }
   else{
-    res.send('Error cannot get user');
+    return next();
   }
 }
 
