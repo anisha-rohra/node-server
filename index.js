@@ -75,8 +75,8 @@ app.post('/upload-photo', routes.uploadPhoto);
 app.get('/photo', routes.getPhoto);
 
 app.get('/avg-rating', routes.getAvgRating);
-//app.get('/max-rating', routes.getMaxRating);
-//app.get('/getEntryYears', routes.getYearsFromEntries);
+app.get('/max-rating', routes.getMaxRating);
+app.get('/getEntryYears', routes.getYearsFromEntries);
 //app.get('/user-products', routes.getProductsByEntry);
 
 
