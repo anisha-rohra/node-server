@@ -504,3 +504,18 @@ exports.getMaxRating = function(req, res, next) {
     })
   }
 }
+
+exports.getYearsFromEntries = function(req, res, next) {
+  if (req.query.userID != "") {
+    var id = req.query.userID;
+    var querytoGo = "SELECT DISTINCT to_char(date, 'YYYY') as year FROM Skin.entry WHERE userid=" + id + " ORDER BY year DESC;"
+    client.query(querytoGo, function(err, qres) {
+      if(err) {
+        console.log("Error in getting max ratings for entries");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    })
+  }
+}
