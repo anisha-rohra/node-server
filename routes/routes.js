@@ -382,11 +382,11 @@ exports.addEntry = function(req, res, next){
     }
   }*/
 
-  /*exports.getProductsByEntry = function(req, res, next) {
+  exports.getProductsByEntry = function(req, res, next) {
     var entryID = req.query.entryID;
     console.log(entryID);
     if (entryID != '') {
-      client.query("SELECT * FROM skin.productsUsed WHERE entryID = " + entryID, function(err, qres) {
+      client.query("SELECT * FROM skin.productUsed WHERE entryID = " + entryID, function(err, qres) {
         if (err) {
           res.send("Error, getProductsByEntry query failed");
         } else {
@@ -397,7 +397,7 @@ exports.addEntry = function(req, res, next){
       res.send("Error, no entryID provided in getProductsByEntry");
       return next();
     }
-  }*/
+  }
 
   /*
    *
