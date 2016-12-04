@@ -217,7 +217,7 @@ exports.addEntry = function(req, res, next){
     var entryDescription = body.entryDescription;
     var rating = body.rating;
     console.log("Adding entry without photo");
-    client.query('INSERT INTO skin.entry (userID, description, rating, date) VALUES ($1, $2, $3, $4)',
+    client.query('INSERT INTO skin.entry (userID, description, rating, date) OUTPUT Inserted.id VALUES ($1, $2, $3, $4)',
         [userID, entryDescription, rating, date], function(err, result) {
       if (err) {
         console.log(err);
