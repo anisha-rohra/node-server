@@ -482,7 +482,7 @@ exports.getPhoto = function(req,res, next){
   }
 }
 
-/*exports.getAvgRating = function(req, res, next) {
+exports.getAvgRating = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
     var queryToGo = "SELECT AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + id + "Group by userId, month ORDER BY userId, month DESC";
@@ -496,7 +496,7 @@ exports.getPhoto = function(req,res, next){
     })
   }
 
-}*/
+}
 
 /*exports.getMaxRating = function(req, res, next) {
   if (req.query.userID != "") {
