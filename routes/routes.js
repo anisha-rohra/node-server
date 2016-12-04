@@ -542,6 +542,7 @@ exports.getYearsFromEntries = function(req, res, next) {
       }
     })
   }
+}
 
 /** Returns the 5 products with the greatest number of ratings overall
  * @param none
