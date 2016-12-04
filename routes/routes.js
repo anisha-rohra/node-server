@@ -366,7 +366,7 @@ exports.addEntry = function(req, res, next){
   /*
    *
    */
-  exports.getUserProducts = function(req,res,next){
+  /*exports.getUserProducts = function(req,res,next){
     var query = req.query;
     console.log(query.userid);
     if(query.userid != ''){
@@ -380,9 +380,9 @@ exports.addEntry = function(req, res, next){
     } else {
       res.send("Error, no userID provided in getUserProducts");
     }
-  }
+  }*/
 
-  exports.getProductsByEntry = function(req, res, next) {
+  /*exports.getProductsByEntry = function(req, res, next) {
     var entryID = req.query.entryID;
     console.log(entryID);
     if (entryID != '') {
@@ -397,7 +397,7 @@ exports.addEntry = function(req, res, next){
       res.send("Error, no entryID provided in getProductsByEntry");
       return next();
     }
-  }
+  }*/
 
   /*
    *
@@ -465,9 +465,9 @@ exports.addEntry = function(req, res, next){
    * pre req:
    * post-req:
    */
-  //exports.avgEntries = function(req,res,next){
+  exports.avgEntries = function(req,res,next){
 
-  //}
+  }
 
   exports.uploadPhoto = function(req,res,next){
     fs.writeFile('test-photo', req.body, function(err){
@@ -496,9 +496,9 @@ exports.getPhoto = function(req,res, next){
     })
   }
 
-}
+}*/
 
-exports.getMaxRating = function(req, res, next) {
+/*exports.getMaxRating = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
     var queryToGo = "SELECT MAX(Skin.ProductUsed.rating), to_char(date, 'Mon-YYYY') as month" +
@@ -527,9 +527,9 @@ exports.getMaxRating = function(req, res, next) {
       }
     })
   }
-}
+}*/
 
-exports.getYearsFromEntries = function(req, res, next) {
+/*exports.getYearsFromEntries = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
     var querytoGo = "SELECT DISTINCT to_char(date, 'YYYY') as year FROM Skin.entry WHERE userid=" + id + " ORDER BY year DESC;";
@@ -542,7 +542,7 @@ exports.getYearsFromEntries = function(req, res, next) {
       }
     })
   }
-}/*
+}*/
 
 /** Returns the 5 products with the greatest number of ratings overall
  * @param none
@@ -625,9 +625,9 @@ exports.getYearsFromEntries = function(req, res, next) {
 
   var rows = queryGetDatabase(queryCons,"getMaxProducts");
   res.json(rows);
-}
+}*/
 
-exports.minProductByRange = function(req, res, next){
+/*exports.minProductByRange = function(req, res, next){
   //
 }*/
 

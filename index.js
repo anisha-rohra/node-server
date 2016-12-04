@@ -80,8 +80,8 @@ app.get('/photo', routes.getPhoto);
 //app.get('/user-products', routes.getProductsByEntry);
 
 
-app.get('/entry-products', routes.getProductsByEntry);
-app.get('/user-products', routes.getUserProducts);
+//app.get('/entry-products', routes.getProductsByEntry);
+//app.get('/user-products', routes.getUserProducts);
 //Product Analytics
 //app.get('/max-product-all', routes.getMaxProducts,routes.maxProductByRange);
 //app.get('/max-product/:userid'.routes.maxProductByUser,routes.maxProductUserRange);
