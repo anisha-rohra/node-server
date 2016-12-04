@@ -461,7 +461,6 @@ exports.addEntry = function(req, res, next){
      });
   }
 
-<<<<<<< HEAD
   /* Function that gets average rating for entries in a given date interval
    * pre req:
    * post-req:
@@ -469,7 +468,7 @@ exports.addEntry = function(req, res, next){
   exports.avgEntries = function(req,res,next){
 
   }
-=======
+
   exports.uploadPhoto = function(req,res,next){
     fs.writeFile('test-photo', req.body, function(err){
         if (err) throw err
@@ -529,4 +528,83 @@ exports.getMaxRating = function(req, res, next) {
     })
   }
 }
->>>>>>> 60a6b1aae370ab132bf8e9239c64fd45cd99d757
+
+/** Get the Product with the highest rating in the system for all users
+ * @param nothing if there is something in query next function is called
+ */
+exports.getMaxProduct = function(req,res,next){
+  var id = req.query.date;
+  if(typeof id == "undefined"){
+
+  }
+  else{
+    return next();
+  }
+
+}
+
+/** Returns the 5 products with the greatest number of ratings overall
+ * @param none
+ * returns:[{name:m, brand:b, total_rating:r}]
+ */
+exports.getMaxProducts = function(req,res,next){
+  // If the request has a startdate query pass it over
+  if(typeof req.query.startdate == "undefined"){
+    return next();
+  }
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID) AS yes order by " +
+  "yes.total_rating desc LIMIT 5;";
+
+  var rows = queryGetDatabase(queryCons,"getMaxProducts");
+  res.json(rows);
+}
+
+/** Returns the top 5 performing products overall within the date range
+ * @param query must contain 2 dates in the form yyyy-mm-dd. startdate and enddate
+ * ?startdate=2016-11-12
+ *
+ */
+exports.maxProductByDate = function(req,res,next){
+
+  var startdate = req.query.startdate;
+  var enddate = req.query.enddate;
+
+
+}
+
+/**
+ * @param userId should pass as param
+ * Returns the maximum rated product per user in the whole lifespan. Not per entry
+ */
+exports.maxProductByUser = function(req,res,next){
+  // CHeck if it is undefined
+  if(typeof req.query.startdate != "undefined"){
+    return next();
+  }
+
+  var userid = req.param.userid;
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID where b.id =" + userid" ) AS yes order by " +
+  "yes.total_rating desc LIMIT 5;";
+  console.log(queryCons);
+
+  var rows = queryGetDatabase(queryCons, "maxProductByUser");
+  res.json(rows);
+}
+
+/**
+ *
+ */
+exports.maxProductUserDate = function(req,res,next){
+
+}
+
+/**
+ *
+ */
+exports.getMinProduct = function(req,res,next){
+
+}

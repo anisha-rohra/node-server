@@ -81,7 +81,12 @@ app.get('/max-rating', routes.getMaxRating);
 
 app.get('/entry-products', routes.getProductsByEntry);
 app.get('/user-products', routes.getUserProducts);
+//Product Analytics
+app.get('/max-product-all', routes.getMaxProducts,routes.maxProductByDate);
+app.get('/max-product/:userid'.routes.maxProductByUser,routes.maxProductUserDate);
 
+//app.get('/min-product-all',routes.getMinProduct, routes.minProductByDate);
+//app.get('/min-product/:userid',routes.minProductUser, routes.minProductByDateUser);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
