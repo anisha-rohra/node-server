@@ -529,7 +529,6 @@ exports.getMaxRating = function(req, res, next) {
   }
 }
 
-<<<<<<< HEAD
 exports.getYearsFromEntries = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
@@ -543,7 +542,6 @@ exports.getYearsFromEntries = function(req, res, next) {
       }
     })
   }
-=======
 
 /** Returns the 5 products with the greatest number of ratings overall
  * @param none
@@ -655,5 +653,4 @@ exports.minProductUser = functon(req,res,next){
  */
 exports.minProductByRangeUser = functon(req,res,next){
 
->>>>>>> 48d2e26d138be4de713d25520f267a3f89b557cf
 }
