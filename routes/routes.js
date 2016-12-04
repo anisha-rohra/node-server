@@ -366,11 +366,11 @@ exports.addEntry = function(req, res, next){
   /*
    *
    */
-  /*exports.getUserProducts = function(req,res,next){
+  exports.getUserProducts = function(req,res,next){
     var query = req.query;
-    console.log(query.userid);
-    if(query.userid != ''){
-      client.query("SELECT * FROM skin.product WHERE userID=" + query.userid + ";", function(err, qres) {
+    console.log(query.userID);
+    if(query.userID != ''){
+      client.query("SELECT * FROM skin.product WHERE userID=" + query.userID + ";", function(err, qres) {
         if (err) {
           res.send("Error, getUserProducts query failed");
         } else {
@@ -380,7 +380,7 @@ exports.addEntry = function(req, res, next){
     } else {
       res.send("Error, no userID provided in getUserProducts");
     }
-  }*/
+  }
 
   exports.getProductsByEntry = function(req, res, next) {
     var entryID = req.query.entryID;
