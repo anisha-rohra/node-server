@@ -465,9 +465,9 @@ exports.addEntry = function(req, res, next){
    * pre req:
    * post-req:
    */
-  exports.avgEntries = function(req,res,next){
+  //exports.avgEntries = function(req,res,next){
 
-  }
+  //}
 
   exports.uploadPhoto = function(req,res,next){
     fs.writeFile('test-photo', req.body, function(err){
