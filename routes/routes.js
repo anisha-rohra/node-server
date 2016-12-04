@@ -483,10 +483,9 @@ exports.getPhoto = function(req,res, next){
 }
 
 exports.getAvgRating = function(req, res, next) {
-  if (req.query.userID != "" && req.query.year != "") {
+  if (req.query.userID != "") {
     var id1 = req.query.userID;
-    var id2 = req.query.year;
-    var queryToGo = "SELECT AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + id1 + " AND to_char(date, 'YYYY')=" + id2 + "Group  by userId, month ORDER BY userId, month DESC";
+    var queryToGo = "SELECT AVG(rating) as rating, to_char(date, 'Mon-YYYY') as month From Skin.Entry Where userid=" + id1 + "Group  by userId, month ORDER BY userId, month DESC";
     client.query(queryToGo, function(err, qres) {
       if(err) {
         console.log("Error in getting avg ratings for entries");
