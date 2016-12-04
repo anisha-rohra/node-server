@@ -75,6 +75,22 @@ exports.getByEmail = function(req,res,next){
   }
 }
 
+exports.getUserByNamePassword = function(req,res,next){
+  if (req.query.username != "" && req.query.password != ""){
+    var username = req.query.username;
+    var password = req.query.password;
+    client.query("SELECT * FROM skin.user where username=" + username + " and password=" + password,function(err,qres){
+      res.json(qres.rows);
+    });
+   }
+   else{
+     return next();
+   }
+
+}
+
+
+
 /* Function that adds a new user into our database
  *
  */
@@ -445,6 +461,14 @@ exports.addEntry = function(req, res, next){
      });
   }
 
+  /* Function that gets average rating for entries in a given date interval
+   * pre req:
+   * post-req:
+   */
+  exports.avgEntries = function(req,res,next){
+
+  }
+
   exports.uploadPhoto = function(req,res,next){
     fs.writeFile('test-photo', req.body, function(err){
         if (err) throw err
@@ -505,6 +529,7 @@ exports.getMaxRating = function(req, res, next) {
   }
 }
 
+<<<<<<< HEAD
 exports.getYearsFromEntries = function(req, res, next) {
   if (req.query.userID != "") {
     var id = req.query.userID;
@@ -518,4 +543,117 @@ exports.getYearsFromEntries = function(req, res, next) {
       }
     })
   }
+=======
+
+/** Returns the 5 products with the greatest number of ratings overall
+ * @param none
+ * returns:[{name:m, brand:b, total_rating:r}]
+ */
+exports.getMaxProducts = function(req,res,next){
+  // If the request has a startdate query pass it over
+  if(typeof req.query.startdate == "undefined"){
+    return next();
+  }
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID) AS yes order by " +
+  "yes.total_rating desc LIMIT 5;";
+
+  var rows = queryGetDatabase(queryCons,"getMaxProducts");
+  res.json(rows);
+}
+
+/** Returns the top 5 performing products overall within the date range
+ * @param query must contain 2 dates in the form yyyy-mm-dd. startdate and enddate
+ * ?startdate=2016-11-12
+ *
+ */
+exports.maxProductByRange = function(req,res,next){
+  // Get ranges
+  var startdate = req.query.startdate;
+  var enddate = req.query.enddate;
+
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID where to_date(" + startdate + ",YYYY-MM-DD) <= now()) AS yes order by " +
+  "yes.total_rating  LIMIT 5;";
+
+  var rows = queryGetDatabase(queryCons,"getMaxProducts");
+  res.json(rows);
+}
+
+/**TODO: AFTER TESTING FRONT END
+ * @param userId should pass as param
+ * Returns the maximum rated product per user in the whole lifespan. Not per entry
+ */
+exports.maxProductByUser = function(req,res,next){
+  // CHeck if it is undefined
+  if(typeof req.query.startdate != "undefined"){
+    return next();
+  }
+
+  var userid = req.param.userid;
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID where b.id =" + userid" ) AS yes order by " +
+  "yes.total_rating desc LIMIT 5;";
+  console.log(queryCons);
+
+  var rows = queryGetDatabase(queryCons, "maxProductByUser");
+  res.json(rows);
+}
+
+/** TODO: AFTER TESTING FRONT END
+ *
+ */
+exports.maxProductUserRange = function(req,res,next){
+
+}
+
+/**
+ * Get the overall minimum product of our system
+ * Five chosen products
+ */
+exports.getMinProduct = function(req,res,next){
+  // If the request has a startdate query pass it over
+  if(typeof req.query.startdate == "undefined"){
+    return next();
+  }
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID) AS yes order by " +
+  "yes.total_rating  LIMIT 5;";
+
+  var rows = queryGetDatabase(queryCons,"getMaxProducts");
+  res.json(rows);
+}
+
+exports.minProductByRange = function(req, res, next){
+  //
+}
+
+/**
+ * Returns five lowest rated products per user
+ * @param must have userid if in the query startdate is defined next function
+ */
+exports.minProductUser = functon(req,res,next){
+  if(typeof req.query.startdate != "undefined"){
+    return next();
+  }
+
+  var userid = req.param.userid;
+  var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
+  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID where b.id =" + userid" ) AS yes order by " +
+  "yes.total_rating LIMIT 5;";
+  var rows = queryGetDatabase(queryCons, "minProductUser");
+  res.json(rows);
+}
+
+/**TODO: AFTER TESTING FRONT END
+ *
+ */
+exports.minProductByRangeUser = functon(req,res,next){
+
+>>>>>>> 48d2e26d138be4de713d25520f267a3f89b557cf
 }

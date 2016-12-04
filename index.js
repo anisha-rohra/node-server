@@ -57,6 +57,7 @@ app.get('/', function(request, response) {
 	// Queries: - /users?username=username
 	//					- /users?email=email
 app.get('/users', routes.getUsers,routes.getUsersByName, routes.getByEmail);
+app.get('/user-bynamepasswd', routes.getUserByNamePassword);
 app.post('/users',routes.postUser);
 
 app.get('/entry', routes.getEntryByEntryID);
@@ -64,6 +65,8 @@ app.get('/entries', routes.getEntriesByUserID);
 app.post('/entry', routes.addEntry, routes.addEntryWithPhoto);
 app.post('/delete-entry', routes.deleteEntry);
 app.post('/edit-entry', routes.editEntry);
+app.get('/entries/avg/:userid',routes.avgEntries);
+
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
@@ -79,7 +82,12 @@ app.get('/getEntryYears', routes.getYearsFromEntries);
 
 app.get('/entry-products', routes.getProductsByEntry);
 app.get('/user-products', routes.getUserProducts);
+//Product Analytics
+app.get('/max-product-all', routes.getMaxProducts,routes.maxProductByRange);
+app.get('/max-product/:userid'.routes.maxProductByUser,routes.maxProductUserRange);
 
+app.get('/min-product-all',routes.getMinProduct, routes.minProductByRange);
+app.get('/min-product/:userid',routes.minProductUser, routes.minProductByRangeUser);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
