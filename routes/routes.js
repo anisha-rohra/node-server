@@ -222,6 +222,7 @@ exports.addEntry = function(req, res, next){
       if (err) {
         console.log(err);
       } else {
+        console.log(result);
         console.log("Inserted new entry without photo.");
       }
     });
@@ -656,3 +657,25 @@ exports.getYearsFromEntries = function(req, res, next) {
 /*exports.minProductByRangeUser = functon(req,res,next){
 
 }*/
+
+exports.getCurrentEntry = function(req, res, next) {
+
+  var userID = req.query.entryID;
+  var date = req.query.date;
+  console.log(entryID);
+  console.log(date);
+  if (entryID != '' || date != '') {
+    client.query("SELECT * FROM skin.entry WHERE id = " + entryID
+    + " AND date = " + date, function(err, qres) {
+      if (err) {
+        res.send("Error, getCurrentEntry query failed");
+      } else {
+        res.json(qres.rows);
+      }
+    });
+  } else {
+    res.send("Error, no entryID provided in getProductsByEntry");
+    return next();
+  }
+
+}
