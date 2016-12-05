@@ -68,7 +68,7 @@ app.post('/edit-entry', routes.editEntry);
 app.get('/entries/avg/:userid',routes.avgEntries);
 
 
-app.get('/products', routes.getProducts, routes.getProductById);
+app.get('/products', routes.getProducts, routes.getProductById, routes.getProductsByUser);
 app.post('/products', routes.addProduct);
 app.post('/edit-product', routes.editProduct);
 

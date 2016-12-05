@@ -306,7 +306,7 @@ exports.addEntry = function(req, res, next){
  exports.getProductById = function(req,res,next){
    //Check if we have the prod id query
    var query = req.query;
-   if(query.prodid != ''){
+   if(query.prodid != null && query.prodid != ''){
      /*var string = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
      var rows = queryGetDatabase(string, "Get Product By ID");
      res.json(rows);*/
@@ -323,6 +323,24 @@ exports.addEntry = function(req, res, next){
      return next();
    }
  }
+
+ exports.getProductsByUser = function(req,res,next){
+  //Check if there is no query
+  var query = req.query;
+  if(query.userid != null && query.userid != ''){
+    client.query("SELECT * FROM skin.product WHERE userid=" + query.userid, function(err,qres){
+      if(err) {
+        console.log("Error in Get Products by USERID");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    });
+  }
+  else{
+    return next();
+  }
+}
 
  /* Handler function that queries the database and returns all the products
   * by brand
