@@ -676,7 +676,8 @@ exports.addProductsUsed = function(req, res, next) {
         }
       })
     } else {
-      client.query("INSERT INTO skin.productused VALUES ($1, $2, $3)", [entryID, productID, rating], function(err, qres) {
+      console.log(rating);
+      client.query("INSERT INTO skin.productused (entryid, productID, rating) VALUES ($1, $2, $3)", [entryID, productID, rating], function(err, qres) {
         if(err) {
           console.log("Error in addProductsUsed 2");
         }
