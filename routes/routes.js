@@ -664,7 +664,7 @@ exports.addProductsUsed = function(req, res, next) {
   var productID = req.query.productID;
   var rating = req.query.rating;
   if (entryID != '' || productID != '') {
-    if (rating == '') {
+    if (rating == null) {
       console.log("should get here");
       client.query("INSERT INTO skin.productused (entryid, productid) VALUES ($1, $2)", [entryID, productID], function(err, qres) {
         if(err) {
