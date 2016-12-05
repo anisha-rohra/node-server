@@ -282,7 +282,7 @@ exports.addEntry = function(req, res, next){
  exports.getProducts = function(req,res,next){
    //Check if there is no query
    var query = req.query;
-   if(Object.keys(query).length == 0){
+   if(Object.keys(query).length == 0) {
      /*var string = "SELECT * FROM skin.product";
      var rows = queryGetDatabase(string,"Get Products");
      res.json(rows);*/
@@ -707,10 +707,20 @@ exports.addProductsUsed = function(req, res, next) {
         if(err) {
           console.log("Error in addProductsUsed 2");
         }
-        else{
+        else {
           console.log("Added a product used with rating");
         }
       })
     }
   }
+}
+
+exports.getMyIssues() = function(req, res, next) {
+  client.query("SELECT * FROM skin.myissue", function(err, qres) {
+    if (err) {
+      console.log("error in getMyIssues");
+    } else {
+      res.json(qres.rows);
+    }
+  })
 }
