@@ -438,7 +438,7 @@ exports.addEntry = function(req, res, next){
     var name = body.name;
 
     client.query('UPDATE skin.product SET startdate=$1, brand=$2,name=$3 WHERE ID=$4 and userID=$5',
-    [date,brand,name,entryID,userID]
+    [date,brand,name,penid,userID]
         , function(err, result) {
            if (err) {
                 console.log("GOT HERE BUT IT SHOULDNT'T");
