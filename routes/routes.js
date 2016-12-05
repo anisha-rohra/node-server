@@ -659,10 +659,11 @@ exports.getYearsFromEntries = function(req, res, next) {
 }*/
 
 exports.addProductsUsed = function(req, res, next) {
-  console.log("GOT to addProductsUsed");
-  var entryID = req.query.entryID;
-  var productID = req.query.productID;
-  var rating = req.query.rating;
+  var body = req.body;
+  var entryID = body.entryID;
+  var productID = body.productID;
+  var rating = body.rating;
+  console.log(entryID + ", " + productID);
   if (entryID != '' || productID != '') {
     if (rating == null) {
       console.log("should get here");
