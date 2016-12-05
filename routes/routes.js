@@ -750,3 +750,14 @@ exports.postIssuesEntries = function(req, res, next) {
   })
 
 }
+
+exports.getIssuesByEntry = function(req, res, next) {
+  var entryID = req.query.entryID;
+  client.query("SELECT name FROM skin.issuetagged JOIN skin.myissue ON myissueid = id WHERE entryID = $1", [entryID], function(err, qres) {
+    if (err) {
+      console.log("error in getIssuesByEntry");
+    } else {
+      res.json(qres.rows);
+    }
+  });
+}
