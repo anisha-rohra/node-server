@@ -550,19 +550,21 @@ exports.getYearsFromEntries = function(req, res, next) {
  * @param none
  * returns:[{name:m, brand:b, total_rating:r}]
  */
-/*exports.getMaxProducts = function(req,res,next){
+exports.getMaxProducts = function(req,res,next){
   // If the request has a startdate query pass it over
-  if(typeof req.query.startdate == "undefined"){
-    return next();
-  }
   var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
-  "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
+  " as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
   " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID) AS yes order by " +
-  "yes.total_rating desc LIMIT 5;";
-
-  var rows = queryGetDatabase(queryCons,"getMaxProducts");
-  res.json(rows);
-}*/
+  " yes.total_rating desc LIMIT 5;";
+  client.query(queryCons, function(err,qres){
+    if(err) {
+      console.log("Error in getting max products");
+    }
+    else{
+      res.json(qres.rows);
+    }
+  });
+}
 
 /** Returns the top 5 performing products overall within the date range
  * @param query must contain 2 dates in the form yyyy-mm-dd. startdate and enddate
@@ -615,20 +617,21 @@ exports.getYearsFromEntries = function(req, res, next) {
  * Get the overall minimum product of our system
  * Five chosen products
  */
-/*exports.getMinProduct = function(req,res,next){
+exports.getMinProduct = function(req,res,next){
   // If the request has a startdate query pass it over
-  if(typeof req.query.startdate == "undefined"){
-    return next();
-  }
   var queryCons = "SELECT * FROM (SELECT s.ID as ID, s.name as name, s.brand " +
   "as brand, sum(b.rating) as total_rating FROM Skin.product s INNER JOIN " +
   " Skin.ProductUsed b ON s.ID = b.productID GROUP BY s.ID) AS yes order by " +
   "yes.total_rating  LIMIT 5;";
-
-  var rows = queryGetDatabase(queryCons,"getMaxProducts");
-  res.json(rows);
-}*/
-
+  client.query(queryCons, function(err,qres){
+    if(err) {
+      console.log("Error in getting min products");
+    }
+    else{
+      res.json(qres.rows);
+    }
+  });
+}
 /*exports.minProductByRange = function(req, res, next){
   //
 }*/

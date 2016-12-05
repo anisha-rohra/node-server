@@ -81,7 +81,8 @@ app.get('/entry-products', routes.getProductsByEntry);
 app.get('/user-products', routes.getUserProducts);
 
 //Product Analytics
-//app.get('/max-product-all', routes.getMaxProducts,routes.maxProductByRange);
+app.get('/Maximum-Overall', routes.getMaxProducts);
+app.get('/Minimum-Overall', routes.getMinProduct);
 //app.get('/max-product/:userid'.routes.maxProductByUser,routes.maxProductUserRange);
 
 //app.get('/min-product-all',routes.getMinProduct, routes.minProductByRange);
