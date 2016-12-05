@@ -222,7 +222,7 @@ exports.addEntry = function(req, res, next){
       if (err) {
         console.log(err);
       } else {
-        console.log(result);
+        res.json(result.rows);
         console.log("Inserted new entry without photo.");
       }
     });
