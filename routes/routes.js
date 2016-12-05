@@ -437,14 +437,14 @@ exports.addEntry = function(req, res, next){
     var brand = body.brand;
     var name = body.name;
 
-    client.query('UPDATE skin.product SET startdate=$1, brand=$2,name=$3 WHERE ID=$4 and userID=$5',
+    client.query('UPDATE skin.product SET startdate=$1, brand=$2, name=$3 WHERE ID=$4 and userID=$5',
     [date,brand,name,penid,userID]
         , function(err, result) {
            if (err) {
                 console.log("GOT HERE BUT IT SHOULDNT'T");
                 console.log(err);
            } else {
-               console.log("Updated Entry: " + entryID);
+               console.log("Updated Entry: " + penid);
 
            }
        });
