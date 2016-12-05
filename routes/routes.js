@@ -736,3 +736,17 @@ exports.postMyIssues = function(req, res, next) {
     }
   })
 }
+
+exports.postIssuesEntries = function(req, res, next) {
+  var entryID = req.body.entryID;
+  var issueID = req.body.issueID;
+  client.query("INSERT INTO skin.issuetagged VALUES ($1, $2)", [entryID, issuedID], function(err, qres) {
+    if (err) {
+      console.log("error in postIssuesEntries");
+    } else new Promise(function(resolve, reject) {
+      res.json(qres.rows);
+      console.log("successfully posted issue entries");
+    });
+  })
+
+}

@@ -91,6 +91,7 @@ app.get('/user-products', routes.getUserProducts);
 app.post('/add-products-used', routes.addProductsUsed);
 app.get('/issues', routes.getMyIssues);
 app.post('/issues', routes.postMyIssues);
+app.post('/entry-issues', routes.postIssuesEntries);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
