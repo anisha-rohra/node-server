@@ -70,6 +70,7 @@ app.get('/entries/avg/:userid',routes.avgEntries);
 
 app.get('/products', routes.getProducts, routes.getProductById);
 app.post('/products', routes.addProduct);
+app.post('/edit-product', routes.editProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
 app.get('/photo', routes.getPhoto);

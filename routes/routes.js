@@ -424,6 +424,31 @@ exports.addEntry = function(req, res, next){
           }
         });
   }
+  /*
+   * Edits (updates) a product
+  */
+
+   exports.editProduct = function(req, res, next) {
+
+    var body = req.body;
+    var productID = body.penid; //might be prodID, ID etc.
+    var userID = body.userID;
+    var date = body.startdate;
+    var brand = body.brand;
+    var name = body.name;
+
+    client.query('UPDATE skin.product SET startdate=$1, brand=$2,name=$3 WHERE ID=$4 and userID=$5',
+    [date,brand,name,entryID,userID]
+        , function(err, result) {
+           if (err) {
+                console.log("GOT HERE BUT IT SHOULDNT'T");
+                console.log(err);
+           } else {
+               console.log("Updated Entry: " + entryID);
+
+           }
+       });
+  }
 
   exports.getEntriesByIssue = function(req,res, next){
     var body = req.body;
