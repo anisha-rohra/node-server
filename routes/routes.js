@@ -715,7 +715,7 @@ exports.addProductsUsed = function(req, res, next) {
   }
 }
 
-exports.getMyIssues() = function(req, res, next) {
+exports.getMyIssues = function(req, res, next) {
   client.query("SELECT * FROM skin.myissue", function(err, qres) {
     if (err) {
       console.log("error in getMyIssues");
