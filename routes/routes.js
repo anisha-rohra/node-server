@@ -727,7 +727,7 @@ exports.getMyIssues = function(req, res, next) {
 
 exports.postMyIssues = function(req, res, next) {
   var name = req.body.name;
-  client.query("INSERT INTO skin.myissues (name) VALUES ($1) RETURNING id", [name], function(err, qres) {
+  client.query("INSERT INTO skin.myissue (name) VALUES ($1) RETURNING id", [name], function(err, qres) {
     if (err) {
       console.log("error in postMyIssues");
     } else {
