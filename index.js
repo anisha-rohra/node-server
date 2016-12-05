@@ -87,8 +87,6 @@ app.get('/user-products', routes.getUserProducts);
 //app.get('/min-product-all',routes.getMinProduct, routes.minProductByRange);
 //app.get('/min-product/:userid',routes.minProductUser, routes.minProductByRangeUser);
 
-app.get('/entry-date', routes.getCurrentEntry);
-
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
