@@ -282,7 +282,7 @@ exports.addEntry = function(req, res, next){
  exports.getProducts = function(req,res,next){
    //Check if there is no query
    var query = req.query;
-   if(Object.keys(query).length == 0){
+   if(Object.keys(query).length == 0) {
      /*var string = "SELECT * FROM skin.product";
      var rows = queryGetDatabase(string,"Get Products");
      res.json(rows);*/
@@ -306,7 +306,7 @@ exports.addEntry = function(req, res, next){
  exports.getProductById = function(req,res,next){
    //Check if we have the prod id query
    var query = req.query;
-   if(query.prodid != ''){
+   if(query.prodid != null && query.prodid != ''){
      /*var string = "SELECT * FROM skin.product WHERE ID=" + query.prodid + ";";
      var rows = queryGetDatabase(string, "Get Product By ID");
      res.json(rows);*/
@@ -323,6 +323,24 @@ exports.addEntry = function(req, res, next){
      return next();
    }
  }
+
+ exports.getProductsByUser = function(req,res,next){
+  //Check if there is no query
+  var query = req.query;
+  if(query.userid != null && query.userid != ''){
+    client.query("SELECT * FROM skin.product WHERE userid=" + query.userid, function(err,qres){
+      if(err) {
+        console.log("Error in Get Products by USERID");
+      }
+      else{
+        res.json(qres.rows);
+      }
+    });
+  }
+  else{
+    return next();
+  }
+}
 
  /* Handler function that queries the database and returns all the products
   * by brand
@@ -423,6 +441,32 @@ exports.addEntry = function(req, res, next){
             return req.body;
           }
         });
+  }
+  /*
+   * Edits (updates) a product
+  */
+
+   exports.editProduct = function(req, res, next) {
+
+    var body = req.body;
+    var productID = body.penid; //might be prodID, ID etc.
+    //var userID = body.userID; //because this is not a weak entity set, we can identify it solely by productID
+    var date = body.startdate;
+    var brand = body.brand;
+    var name = body.name;
+	console.log(body);
+
+    client.query('UPDATE skin.product SET startdate=$1, brand=$2, name=$3 WHERE ID=$4',//and userID=$5
+    [date,brand,name,productID]
+        , function(err, result) {
+           if (err) {
+                console.log("We are erroring!");
+                console.log(err);
+           } else {
+               console.log("Updated Entry: " + productID);
+
+           }
+       });
   }
 
   exports.getEntriesByIssue = function(req,res, next){
@@ -684,10 +728,57 @@ exports.addProductsUsed = function(req, res, next) {
         if(err) {
           console.log("Error in addProductsUsed 2");
         }
-        else{
+        else {
           console.log("Added a product used with rating");
         }
       })
     }
   }
+}
+
+exports.getMyIssues = function(req, res, next) {
+  client.query("SELECT * FROM skin.myissue", function(err, qres) {
+    if (err) {
+      console.log("error in getMyIssues");
+    } else {
+      res.json(qres.rows);
+    }
+  })
+}
+
+exports.postMyIssues = function(req, res, next) {
+  var name = req.body.name;
+  client.query("INSERT INTO skin.myissue (name) VALUES ($1) RETURNING id", [name], function(err, qres) {
+    if (err) {
+      console.log("error in postMyIssues");
+    } else {
+      res.json(qres.rows);
+      console.log("successfully posted issue");
+    }
+  })
+}
+
+exports.postIssuesEntries = function(req, res, next) {
+  var entryID = req.body.entryID;
+  var issueID = req.body.issueID;
+  client.query("INSERT INTO skin.issuetagged VALUES ($1, $2)", [entryID, issueID], function(err, qres) {
+    if (err) {
+      console.log("error in postIssuesEntries");
+    } else new Promise(function(resolve, reject) {
+      res.json(qres.rows);
+      console.log("successfully posted issue entries");
+    });
+  })
+
+}
+
+exports.getIssuesByEntry = function(req, res, next) {
+  var entryID = req.query.entryID;
+  client.query("SELECT name FROM skin.issuetagged JOIN skin.myissue ON myissueid = id WHERE entryID = $1", [entryID], function(err, qres) {
+    if (err) {
+      console.log("error in getIssuesByEntry");
+    } else {
+      res.json(qres.rows);
+    }
+  });
 }

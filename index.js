@@ -68,8 +68,9 @@ app.post('/edit-entry', routes.editEntry);
 app.get('/entries/avg/:userid',routes.avgEntries);
 
 
-app.get('/products', routes.getProducts, routes.getProductById);
+app.get('/products', routes.getProducts, routes.getProductById, routes.getProductsByUser);
 app.post('/products', routes.addProduct);
+app.post('/edit-product', routes.editProduct);
 
 app.post('/upload-photo', routes.uploadPhoto);
 app.get('/photo', routes.getPhoto);
@@ -89,6 +90,10 @@ app.get('/Minimum-Overall', routes.getMinProduct);
 //app.get('/min-product/:userid',routes.minProductUser, routes.minProductByRangeUser);
 
 app.post('/add-products-used', routes.addProductsUsed);
+app.get('/issues', routes.getMyIssues);
+app.post('/issues', routes.postMyIssues);
+app.post('/entry-issues', routes.postIssuesEntries);
+app.get('/entry-issues', routes.getIssuesByEntry);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
