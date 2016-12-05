@@ -657,3 +657,30 @@ exports.getYearsFromEntries = function(req, res, next) {
 /*exports.minProductByRangeUser = functon(req,res,next){
 
 }*/
+
+exports.addProductsUsed = function(req, res, next) {
+  var entryID = req.query.entryID;
+  var productID = req.query.productID;
+  var rating = req.query.rating;
+  if (entryID == '' || productID == '') {
+    if (rating == '') {
+      client.query("INSERT INTO skin.productused (entryid, productid) VALUES ($1, $2)", [entryID, productID], function(err, qres) {
+        if(err) {
+          console.log("Error in addProductsUsed");
+        }
+        else{
+          console.log("Added a product used without rating");
+        }
+      })
+    } else {
+      client.query("INSERT INTO skin.productused VALUES ($1, $2, $3)", [entryID, productID, rating] function(err, qres) {
+        if(err) {
+          console.log("Error in addProductsUsed 2");
+        }
+        else{
+          console.log("Added a product used with rating");
+        }
+      })
+    }
+  }
+}
