@@ -432,14 +432,14 @@ exports.addEntry = function(req, res, next){
 
     var body = req.body;
     var productID = body.penid; //might be prodID, ID etc.
-    var userID = body.userID;
+    //var userID = body.userID; //because this is not a weak entity set, we can identify it solely by productID
     var date = body.startdate;
     var brand = body.brand;
     var name = body.name;
 	console.log(body);
 
-    client.query('UPDATE skin.product SET startdate=$1, brand=$2, name=$3 WHERE ID=$4 and userID=$5',
-    [date,brand,name,productID,userID]
+    client.query('UPDATE skin.product SET startdate=$1, brand=$2, name=$3 WHERE ID=$4',//and userID=$5
+    [date,brand,name,productID]
         , function(err, result) {
            if (err) {
                 console.log("We are erroring!");
@@ -715,7 +715,7 @@ exports.addProductsUsed = function(req, res, next) {
   }
 }
 
-exports.getMyIssues = function(req, res, next) {
+exports.getMyIssues() = function(req, res, next) {
   client.query("SELECT * FROM skin.myissue", function(err, qres) {
     if (err) {
       console.log("error in getMyIssues");
