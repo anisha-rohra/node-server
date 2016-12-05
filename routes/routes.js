@@ -659,6 +659,7 @@ exports.getYearsFromEntries = function(req, res, next) {
 }*/
 
 exports.addProductsUsed = function(req, res, next) {
+  console.log("GOT to addProductsUsed");
   var entryID = req.query.entryID;
   var productID = req.query.productID;
   var rating = req.query.rating;
