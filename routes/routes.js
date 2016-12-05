@@ -724,3 +724,15 @@ exports.getMyIssues = function(req, res, next) {
     }
   })
 }
+
+exports.postMyIssues = function(req, res, next) {
+  var name = req.query.next;
+  client.query("INSERT INTO skin.myissues (name) VALUES ($1) RETURNING id", [name], function(err, qres) {
+    if (err) {
+      console.log("error in postMyIssues");
+    } else {
+      res.json(qres.rows);
+      console.log("successfully posted issue");
+    }
+  })
+}
